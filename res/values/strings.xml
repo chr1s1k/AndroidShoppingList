@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Nákupní seznam</string>
+    <string name="menu_settings">Nastavení</string>
+    <string name="create_new_shopping_list">Napsat nákup</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_show_categories">Vyberte kategorii</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="test">Testovací string</string>
+    <string name="title_activity_show_products">Vyberte produkty</string>
+
+</resources>
