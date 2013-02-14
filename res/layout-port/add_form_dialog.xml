@@ -8,11 +8,51 @@
         android:id="@+id/quantityInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/quantity_input_placeholder"
         android:inputType="number|numberDecimal" >
 
         <requestFocus />
     </EditText>
+    
+    <RadioGroup
+        android:id="@+id/quantityType"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        
+        <RadioButton
+            android:id="@+id/quantityType1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_type1"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/quantityType3"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_type2" />
+
+        <RadioButton
+            android:id="@+id/quantityType2"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_type3" />
+
+        <RadioButton
+            android:id="@+id/quantityType4"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quantity_type4" />
+
+    </RadioGroup>
 
 </LinearLayout>
