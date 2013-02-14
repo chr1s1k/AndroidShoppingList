@@ -33,26 +33,29 @@ public class ShowCategoriesActivity extends ListActivity {
         
         dataSource = new DataSource(this);
         dataSource.open();
-        List<Category> categories = dataSource.getCategories();
+        final List<Category> categories = dataSource.getCategories();
+        dataSource.close();
 
         ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1, categories);
-        setListAdapter(adapter);
-        
-        ListView categoriesList = getListView(); // get ListView component in current activity
+        ListView categoriesList = getListView(); // get ListView component from current activity
+
+        categoriesList.setAdapter(adapter);
         categoriesList.setOnItemClickListener(new OnItemClickListener () { // bind click handler on item in listview
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				String category = ((TextView) view).getText().toString();
-				showProducts(category);
+				String categoryTitle = ((TextView) view).getText().toString(); // get category title
+				int categoryId = categories.get(position).getId(); // get category id
+				showProducts(categoryTitle, categoryId);
 			}
         	
         });
 	}
 	
-	public void showProducts(String category) {
+	public void showProducts(String categoryTitle, int categoryId) {
 		Intent intent = new Intent(this, ShowProductsActivity.class);
-		intent.putExtra("category", category);
+		intent.putExtra("categoryTitle", categoryTitle);
+		intent.putExtra("categoryId", categoryId);
 		startActivity(intent);
 	}
 

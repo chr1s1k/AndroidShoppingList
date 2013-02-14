@@ -7,15 +7,20 @@ import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
-	public static final String CATEGORIES_TABLE= "categories";
+	private static final String DATABASE_NAME = "shoppingList.db";
+	private static final int DATABASE_VERSION = 3;
+	
+	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
 	public static final String CATEGORY_COLUMN_TITLE = "title";
 	
-	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 2;
+	public static final String PRODUCTS_TABLE = "products";
+	public static final String PRODUCT_COLUMN_ID = "id";
+	public static final String PRODUCT_COLUMN_TITLE = "title";
+	public static final String PRODUCT_COLUMN_CATEGORY_ID = "categoryId";
 	
 	private static final String TABLE_CATEGORIES_CREATE = "CREATE TABLE " + CATEGORIES_TABLE + " ( " + CATEGORY_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " + CATEGORY_COLUMN_TITLE + " VARCHAR(50) NOT NULL );";
-	private static final String TABLE_PRODUCTS_CREATE = "CREATE TABLE products ( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, title VARCHAR(50) NOT NULL, categoryId INT NOT NULL );";
+	private static final String TABLE_PRODUCTS_CREATE = "CREATE TABLE " + PRODUCTS_TABLE + " ( " + PRODUCT_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " + PRODUCT_COLUMN_TITLE + " VARCHAR(50) NOT NULL, " + PRODUCT_COLUMN_CATEGORY_ID + " INT NOT NULL );";
 
 	public DatabaseHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -9,5 +9,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="test">Testovací string</string>
     <string name="title_activity_show_products">Vyberte produkty</string>
+    <string name="add_product">Přidat</string>
+    <string name="cancel">Storno</string>
+    <string name="quantity_input_placeholder">Zadejte množství</string>
 
 </resources>

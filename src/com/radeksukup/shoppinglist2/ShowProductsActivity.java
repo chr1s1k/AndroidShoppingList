@@ -1,12 +1,23 @@
 package com.radeksukup.shoppinglist2;
 
+import java.util.List;
+
+import android.app.DialogFragment;
+import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-public class ShowProductsActivity extends Activity {
+public class ShowProductsActivity extends ListActivity {
+	
+	private DataSource dataSource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +25,32 @@ public class ShowProductsActivity extends Activity {
 		setContentView(R.layout.activity_show_products);
 		// Show the Up button in the action bar.
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		Intent intent = getIntent();
+		String categoryTitle = intent.getExtras().getString("categoryTitle");
+		int categoryId = intent.getExtras().getInt("categoryId");
+		setTitle(categoryTitle);
+		
+		dataSource = new DataSource(this);
+		dataSource.open();
+		final List<Product> products = dataSource.getProducts(categoryId);
+		dataSource.close();
+		
+		ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
+		ListView productsList = getListView();
+		
+		productsList.setAdapter(adapter);
+		productsList.setOnItemClickListener(new OnItemClickListener () {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				DialogFragment addFormDialog = new AddFormDialog();
+				String dialogTitle = products.get(position).getTitle();
+				
+				((AddFormDialog) addFormDialog).setTitle(dialogTitle);
+				addFormDialog.show(getFragmentManager(), "addFormDialog");
+			}
+			
+		});
 	}
 
 	@Override
