@@ -19,5 +19,40 @@
         android:layout_height="wrap_content"
         android:onClick="sendSms"
         android:text="@string/send_sms" />
+    
+    <ListView
+        android:id="@+id/shoppingList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+    <LinearLayout 
+        android:id="@+id/LinearLayout02"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        
+        <Button
+          android:id="@+id/addNextButton"
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:onClick="showCategories"
+          android:text="@string/add_next" />
+
+        <Button
+          android:id="@+id/lockCurrentListButton"
+          android:layout_weight="1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:onClick="lockCurrentList"
+          android:text="@string/adding_done" />
+        
+    </LinearLayout>
+    
+    <Button
+          android:id="@+id/clearCurrentListButton"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:onClick="clearCurrentList"
+          android:text="@string/clear_current_shopping_list" />
 
 </LinearLayout>

@@ -6,6 +6,7 @@ package com.radeksukup.shoppinglist2;
 import java.util.ArrayList;
 
 import android.app.Application;
+import android.webkit.WebView.FindListener;
 
 /**
  * @author Radek Sukup
@@ -14,54 +15,54 @@ import android.app.Application;
 public class ShoppingList extends Application {
 
 	private ArrayList<ShoppingListItem> items = new ArrayList<ShoppingListItem>();
-	private int lockedItems = 0;
-	boolean locked = false;
+	public int disabledItems = 0;
+	private boolean locked = false;
 	
 	/*
-	 * Lock shopping list.
+	 * Locks shopping list.
 	 */
 	public void lock() {
 		locked = true;
 	}
 	
 	/*
-	 * Unlock shopping list.
+	 * Unlocks shopping list.
 	 */
 	public void unLock() {
 		locked = false;
 	}
 	
 	/*
-	 * Return true if shopping list is locked, otherwise false.
+	 * Returns true if shopping list is locked, otherwise false.
 	 */
 	public boolean isLocked() {
 		return locked;
 	}
 	
 	/*
-	 * Remove all items from shopping list.
+	 * Removes all items from shopping list.
 	 */
 	public void empty() {
 		items.clear();
-		lockedItems = 0;
+		disabledItems = 0;
 	}
 	
 	/*
-	 * Return all items from shopping list.
+	 * Returns all items from shopping list.
 	 */
 	public ArrayList<ShoppingListItem> getItems() {
 		return items;
 	}
 	
 	/*
-	 * Return true if shopping list has at least one item, otherwise false.
+	 * Returns true if shopping list has at least one item, otherwise false.
 	 */
 	public boolean hasItems() {
 		return !items.isEmpty();
 	}
 	
 	/*
-	 * Remove a single item from shopping list specified by id.
+	 * Removes a single item from shopping list specified by id.
 	 */
 	public void removeItem(int id) {
 		for (int i = 0; i < items.size(); i++) {
@@ -73,18 +74,14 @@ public class ShoppingList extends Application {
 	}
 	
 	/*
-	 * Insert item into shopping list.
+	 * Inserts item into shopping list.
 	 */
 	public void addItem(ShoppingListItem newItem) {
-//		if (itemExists(newItem.getId())) {
-//			updateItem(newItem);
-//		} else {
-			items.add(newItem);
-//		}
+		items.add(newItem);
 	}
 	
 	/*
-	 * Update existing item in shopping list.
+	 * Updates existing item in shopping list.
 	 */
 	public void updateItem(ShoppingListItem updatedItem) {
 		if (itemExists(updatedItem.getId())) {
@@ -95,7 +92,7 @@ public class ShoppingList extends Application {
 	}
 	
 	/*
-	 * Return a single item from shopping list if exists, otherwise null.
+	 * Returns a single item from shopping list if exists, otherwise null.
 	 */
 	public ShoppingListItem getItem(int id) {
 		for (int i = 0; i < items.size(); i++) {
@@ -107,7 +104,21 @@ public class ShoppingList extends Application {
 	}
 	
 	/*
-	 * Return true if item already exists in current shopping list, otherwise false.
+	 * Returns a single item by index from shopping list if exists, otherwise null.
+	 */
+	public ShoppingListItem getItemByIndex(int index) {
+		return items.get(index);
+	}
+	
+	/*
+	 * Returns true if all items in shopping list are disabled, otherwise false.
+	 */
+	public boolean hasAllItemsDisabled() {
+		return disabledItems == items.size();
+	}
+	
+	/*
+	 * Returns true if item already exists in current shopping list, otherwise false.
 	 */
 	public boolean itemExists(int id) {
 		for (int i = 0; i < items.size(); i++) {
@@ -116,10 +127,6 @@ public class ShoppingList extends Application {
 			}
 		}
 		return false;
-	}
-	
-	public void show() {
-		
 	}
 	
 }

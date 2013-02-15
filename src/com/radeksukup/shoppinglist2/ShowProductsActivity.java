@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class ShowProductsActivity extends ListActivity {
@@ -43,13 +44,13 @@ public class ShowProductsActivity extends ListActivity {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				DialogFragment addFormDialog = new AddFormDialog();
+				DialogFragment formDialog = new FormDialog();
 				String dialogTitle = products.get(position).getTitle();
 				int productId = products.get(position).getId();
 				
-				((AddFormDialog) addFormDialog).setTitle(dialogTitle); // set dialog title
-				((AddFormDialog) addFormDialog).setProductId(productId); // set selected product id
-				addFormDialog.show(getFragmentManager(), "addFormDialog");
+				((FormDialog) formDialog).setTitle(dialogTitle); // set dialog title
+				((FormDialog) formDialog).setProductId(productId); // set selected product id
+				formDialog.show(getFragmentManager(), "addFormDialog");
 			}
 			
 		});

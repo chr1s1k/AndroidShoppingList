@@ -13,13 +13,14 @@ public class ShoppingListItem {
 	private String title;
 	private double quantity;
 	private String quantityType;
+	private boolean disabled;
 	
 	public ShoppingListItem(int id, String title, double quantity, String quantityType) {
-		//super();
 		this.id = id;
 		this.title = title;
 		this.quantity = quantity;
 		this.quantityType = quantityType;
+		disabled = false;
 	}
 	
 	public int getId() {
@@ -51,6 +52,19 @@ public class ShoppingListItem {
 	
 	public void setQuantityType(String quantityType) {
 		this.quantityType = quantityType;
+	}
+	
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled() {
+		disabled = true;
+	}
+
+	@Override
+	public String toString() {
+		return title + " " + (int) quantity + " " + quantityType;
 	}
 
 }
