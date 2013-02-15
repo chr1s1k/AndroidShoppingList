@@ -12,6 +12,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		ShoppingList sl = (ShoppingList) getApplication();
+		
+		if (sl.hasItems()) {
+			findViewById(R.id.showCategoriesButton).setVisibility(View.INVISIBLE);
+			sl.show();
+		} else {
+			findViewById(R.id.sendSmsButton).setVisibility(View.INVISIBLE);
+		}
 	}
 
 	@Override

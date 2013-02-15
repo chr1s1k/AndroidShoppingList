@@ -45,8 +45,10 @@ public class ShowProductsActivity extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				DialogFragment addFormDialog = new AddFormDialog();
 				String dialogTitle = products.get(position).getTitle();
+				int productId = products.get(position).getId();
 				
-				((AddFormDialog) addFormDialog).setTitle(dialogTitle);
+				((AddFormDialog) addFormDialog).setTitle(dialogTitle); // set dialog title
+				((AddFormDialog) addFormDialog).setProductId(productId); // set selected product id
 				addFormDialog.show(getFragmentManager(), "addFormDialog");
 			}
 			

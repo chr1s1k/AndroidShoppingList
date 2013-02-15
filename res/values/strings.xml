@@ -4,6 +4,7 @@
     <string name="app_name">Nákupní seznam</string>
     <string name="menu_settings">Nastavení</string>
     <string name="create_new_shopping_list">Napsat nákup</string>
+    <string name="send_sms">Poslat jako SMS</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_show_categories">Vyberte kategorii</string>
     <string name="title_activity_main">MainActivity</string>
@@ -16,5 +17,10 @@
     <string name="quantity_type2">kg</string>
     <string name="quantity_type3">dkg</string>
     <string name="quantity_type4">l</string>
+    <string-array name="toast_messages">
+        <item >Položka přidána</item>
+        <item >Položka aktualizována</item>
+        <item >Položka odebrána</item>
+    </string-array>
 
 </resources>
