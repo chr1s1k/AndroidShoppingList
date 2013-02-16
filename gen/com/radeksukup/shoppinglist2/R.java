@@ -17,17 +17,16 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int LinearLayout02=0x7f080003;
-        public static final int addNextButton=0x7f080004;
-        public static final int clearCurrentListButton=0x7f080006;
-        public static final int lockCurrentListButton=0x7f080005;
-        public static final int menu_settings=0x7f08000d;
-        public static final int quantityInput=0x7f080007;
-        public static final int quantityType=0x7f080008;
-        public static final int quantityType1=0x7f080009;
-        public static final int quantityType2=0x7f08000b;
-        public static final int quantityType3=0x7f08000a;
-        public static final int quantityType4=0x7f08000c;
+        public static final int addNextButton=0x7f080003;
+        public static final int clearCurrentListButton=0x7f080005;
+        public static final int lockCurrentListButton=0x7f080004;
+        public static final int menu_settings=0x7f08000c;
+        public static final int quantityInput=0x7f080006;
+        public static final int quantityType=0x7f080007;
+        public static final int quantityType1=0x7f080008;
+        public static final int quantityType2=0x7f08000a;
+        public static final int quantityType3=0x7f080009;
+        public static final int quantityType4=0x7f08000b;
         public static final int sendSmsButton=0x7f080001;
         public static final int shoppingList=0x7f080002;
         public static final int showCategoriesButton=0x7f080000;

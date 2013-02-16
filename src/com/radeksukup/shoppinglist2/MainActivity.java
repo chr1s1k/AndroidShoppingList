@@ -23,24 +23,13 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		ShoppingList sl = (ShoppingList) getApplication();
-		
-		if (sl.hasItems()) {
-			findViewById(R.id.showCategoriesButton).setVisibility(View.GONE);
-			findViewById(R.id.addNextButton).setVisibility(View.VISIBLE);
-			findViewById(R.id.lockCurrentListButton).setVisibility(View.VISIBLE);
-			if (sl.isLocked()) {
-				findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
-			} else {
-				findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
-			}
-			renderShoppingList(sl);
-		} else {
-			findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
-			findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
-			findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
-			findViewById(R.id.addNextButton).setVisibility(View.GONE);
-		}
+		renderMainScreen();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		renderMainScreen();
 	}
 
 	@Override
@@ -132,5 +121,26 @@ public class MainActivity extends Activity {
 			}
 		};
 	}
-
+	
+	public void renderMainScreen() {
+		ShoppingList sl = (ShoppingList) getApplication();
+		
+		if (sl.hasItems()) {
+			findViewById(R.id.sendSmsButton).setVisibility(View.VISIBLE);
+			findViewById(R.id.showCategoriesButton).setVisibility(View.GONE);
+			findViewById(R.id.addNextButton).setVisibility(View.VISIBLE);
+			findViewById(R.id.lockCurrentListButton).setVisibility(View.VISIBLE);
+			if (sl.isLocked()) {
+				findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
+			} else {
+				findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
+			}
+			renderShoppingList(sl);
+		} else {
+			findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
+			findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
+			findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
+			findViewById(R.id.addNextButton).setVisibility(View.GONE);
+		}
+	}
 }
