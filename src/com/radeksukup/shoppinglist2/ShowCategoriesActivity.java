@@ -57,6 +57,7 @@ public class ShowCategoriesActivity extends ListActivity {
 		intent.putExtra("categoryTitle", categoryTitle);
 		intent.putExtra("categoryId", categoryId);
 		startActivity(intent);
+//		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 	}
 
 	@Override

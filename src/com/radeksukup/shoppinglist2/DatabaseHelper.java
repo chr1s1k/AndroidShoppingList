@@ -8,7 +8,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 7;
 	
 	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
@@ -55,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hrušky', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Jahody', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Pomelo', 1)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Švestky', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rajčata', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rajčata cherry', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Brambory', 2)");
@@ -98,7 +99,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Ředkev', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zázvor', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kedlubny', 2)");
-	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Švestky', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Chleba', 3)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Toastový chleba', 3)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rohlíky', 3)");
@@ -160,7 +160,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kečup sladký', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kečup ostrý', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Křen', 4)");
-	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rajčatový protlak', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Chilli omáčka', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Šunka', 5)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Šunka uzená', 5)");
@@ -253,6 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Niva', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Parmezán', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mozarella', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Blaťácké zlato', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Cottage sýr', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rýže', 7)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rýže jasmínová', 7)");
@@ -453,6 +453,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zázvor mletý', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tymián', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Muškátový květ', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Muškátový oříšek', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Provensálské koření', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sójová omáčka', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Worcestrová omáčka', 12)");

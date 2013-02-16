@@ -2,11 +2,11 @@ package com.radeksukup.shoppinglist2;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+
 		renderMainScreen();
 	}
 
@@ -31,6 +31,41 @@ public class MainActivity extends Activity {
 		super.onResume();
 		renderMainScreen();
 	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		System.out.println("Activity destroyed");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		System.out.println("Activity paused");
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		System.out.println("Activity restarted");
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		System.out.println("Activity started");
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		System.out.println("Activity stopped");
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -38,6 +73,11 @@ public class MainActivity extends Activity {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
 		return true;
 	}
+	
+	 @Override
+	 public void onConfigurationChanged(Configuration newConfig) {
+		 super.onConfigurationChanged(newConfig);
+	 }
 	
 	public void showCategories (View view) {
 		Intent intent = new Intent(this, ShowCategoriesActivity.class);
@@ -82,25 +122,27 @@ public class MainActivity extends Activity {
 	}
 	
 	public void renderShoppingList(ShoppingList sl) {
-		List<ShoppingListItem> items = sl.getItems();
+		ArrayList<ShoppingListItem> items = sl.getItems();
 		ListView shoppingList = (ListView) findViewById(R.id.shoppingList);
-		ArrayAdapter<ShoppingListItem> adapter = new ArrayAdapter<ShoppingListItem>(this, android.R.layout.simple_list_item_1, items);
+		
+		// set custom adapter for shopping list view
+		ArrayAdapter<ShoppingListItem> adapter = new ShoppingListItemAdapter(this, R.layout.shopping_list_item, items);
 		
 		shoppingList.setAdapter(adapter);
-		shoppingList.setOnItemClickListener(shoppingListItemClickListener(sl)); // set on item click listener
+		shoppingList.setOnItemClickListener(shoppingListItemClickListener(sl, adapter)); // set on item click listener
 	}
 
-	private OnItemClickListener shoppingListItemClickListener(final ShoppingList sl) {
+	private OnItemClickListener shoppingListItemClickListener(final ShoppingList sl, final ArrayAdapter<ShoppingListItem> adapter) {
 		return new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ShoppingListItem item = sl.getItemByIndex(position); // get selected item
-				
+
 				if (sl.isLocked()) { // shopping list is locked
-					view.setEnabled(false); // disable selected item in view
 					
 					if (!item.isDisabled()) {
+						view.setAlpha((float) 0.3);
 						item.setDisabled(); // disable selected item in model
 						sl.disabledItems++; // increase count of disabled items
 					}
@@ -132,6 +174,8 @@ public class MainActivity extends Activity {
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.VISIBLE);
 			if (sl.isLocked()) {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
+				findViewById(R.id.addNextButton).setVisibility(View.GONE);
+				findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 			} else {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
 			}
