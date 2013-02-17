@@ -22,6 +22,24 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		ShoppingList sl = (ShoppingList) getApplication();
+		int disabledItems = 0;
+		boolean locked = false;
+		ArrayList<ShoppingListItem> items = null;
+		
+		if (savedInstanceState != null) {
+			disabledItems = savedInstanceState.getInt("disabled-items"); // get disabled items
+			locked = savedInstanceState.getBoolean("locked"); // get status of created shopping list
+			items = savedInstanceState.getParcelableArrayList("shopping-list-items"); // get previously added items
+			
+			sl.disabledItems = disabledItems;
+			sl.setLocked(locked);
+		}
+		
+		if (items != null) {
+			sl.setItems(items);
+		}
 
 		renderMainScreen();
 	}
@@ -36,35 +54,16 @@ public class MainActivity extends Activity {
 	public void onBackPressed() {
 		super.onBackPressed();
 	}
-
+	
 	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		System.out.println("Activity destroyed");
-	}
-
-	@Override
-	protected void onPause() {
-		super.onPause();
-		System.out.println("Activity paused");
-	}
-
-	@Override
-	protected void onRestart() {
-		super.onRestart();
-		System.out.println("Activity restarted");
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-		System.out.println("Activity started");
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		System.out.println("Activity stopped");
+	protected void onSaveInstanceState(Bundle outState) {
+		ShoppingList sl = (ShoppingList) getApplication();
+		
+		outState.putInt("disabled-items", sl.disabledItems);
+		outState.putBoolean("locked", sl.isLocked());
+		outState.putParcelableArrayList("shopping-list-items", sl.getItems());
+		
+		super.onSaveInstanceState(outState);
 	}
 
 	@Override
@@ -79,11 +78,17 @@ public class MainActivity extends Activity {
 		 super.onConfigurationChanged(newConfig);
 	 }
 	
+	/*
+	 * Starts an activity which contains list of categories.
+	 */
 	public void showCategories (View view) {
 		Intent intent = new Intent(this, ShowCategoriesActivity.class);
 		startActivity(intent);
 	}
 	
+	/*
+	 * Locks current shopping list a modifies layout of main activity.
+	 */
 	public void lockCurrentList (View view) {
 		view.setVisibility(View.GONE);
 		findViewById(R.id.addNextButton).setVisibility(View.GONE);
@@ -97,6 +102,9 @@ public class MainActivity extends Activity {
 		confirmDialog.show(getFragmentManager(), "confirmDialog");
 	}
 	
+	/*
+	 * Opens built-in SMS application with pre-filled SMS body.
+	 */
 	public void sendSms(View view) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		ShoppingList sl = (ShoppingList) getApplication();
@@ -121,6 +129,9 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	
+	/*
+	 * Populates shopping list view.
+	 */
 	public void renderShoppingList(ShoppingList sl) {
 		ArrayList<ShoppingListItem> items = sl.getItems();
 		ListView shoppingList = (ListView) findViewById(R.id.shoppingList);
@@ -164,6 +175,9 @@ public class MainActivity extends Activity {
 		};
 	}
 	
+	/*
+	 * Renders layout of main activity according to current state of shopping list.
+	 */
 	public void renderMainScreen() {
 		ShoppingList sl = (ShoppingList) getApplication();
 		

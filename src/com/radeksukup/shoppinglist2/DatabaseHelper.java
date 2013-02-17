@@ -8,7 +8,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 10;
 	
 	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
@@ -72,6 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Paprika bílá', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Paprika kapie', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Ledový salát', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Římský salát', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zelí červené', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zelí bílé', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Cibule šalotka', 2)");
@@ -212,6 +213,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Losos filet s kůží', 5)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Losos filet bez kůže', 5)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Králík', 5)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Anglická slanina', 5)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Špek', 5)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mléko polotučné', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mléko odtučněné', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mléko plnotučné', 6)");
@@ -252,6 +255,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Niva', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Parmezán', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mozarella', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zottarella', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Olomoucké syrečky', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hermelín', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Modřenín', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Parenica', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Pepa na gril', 6)");;
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Blaťácké zlato', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Cottage sýr', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rýže', 7)");
@@ -453,7 +462,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zázvor mletý', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tymián', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Muškátový květ', 12)");
-	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Muškátový oříšek', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Muškátový ořech', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Anýz', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Badyán mletý', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Badyán celý', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hořčičné semínko', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Pažitka', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Petrželová nať', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Římský kmín', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Provensálské koření', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sójová omáčka', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Worcestrová omáčka', 12)");
@@ -587,8 +603,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(DatabaseHelper.class.getName(),
-				"Upgrading database from version " + oldVersion + " to "
-			            + newVersion + ", which will destroy all old data");
+				"Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS categories;");
 		db.execSQL("DROP TABLE IF EXISTS products;");
 		onCreate(db);

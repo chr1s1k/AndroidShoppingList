@@ -6,7 +6,6 @@ package com.radeksukup.shoppinglist2;
 import java.util.ArrayList;
 
 import android.app.Application;
-import android.webkit.WebView.FindListener;
 
 /**
  * @author Radek Sukup
@@ -17,7 +16,7 @@ public class ShoppingList extends Application {
 	private ArrayList<ShoppingListItem> items = new ArrayList<ShoppingListItem>();
 	public int disabledItems = 0;
 	private boolean locked = false;
-	
+
 	/*
 	 * Locks shopping list.
 	 */
@@ -37,6 +36,20 @@ public class ShoppingList extends Application {
 	 */
 	public boolean isLocked() {
 		return locked;
+	}
+	
+	/*
+	 * Sets state of shopping list to locked or unlocked.
+	 */
+	public void setLocked(boolean locked) {
+		this.locked = locked;
+	}
+	
+	/*
+	 * Adds items to list
+	 */
+	public void setItems(ArrayList<ShoppingListItem> items) {
+		this.items = items;
 	}
 	
 	/*
@@ -127,6 +140,11 @@ public class ShoppingList extends Application {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "########## Polozek mame " + items.size() + ".\n############# Seznam je locked: " + locked + ".\n########### Disabled polozek je " + disabledItems;
 	}
 	
 }
