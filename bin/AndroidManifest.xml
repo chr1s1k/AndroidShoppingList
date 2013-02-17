@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.radeksukup.shoppinglist2"
+    android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.1" >
 
     <uses-sdk
         android:minSdkVersion="9"
         android:targetSdkVersion="17" />
 
     <application
+        android:name="com.radeksukup.shoppinglist2.ShoppingList"
         android:allowBackup="true"
+        android:allowClearUserData="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.radeksukup.shoppinglist2.ShoppingList" >
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.radeksukup.shoppinglist2.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,21 +30,28 @@
         </activity>
         <activity
             android:name="com.radeksukup.shoppinglist2.ShowCategoriesActivity"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/title_activity_show_categories"
-            android:screenOrientation="portrait"
-            android:parentActivityName="com.radeksukup.shoppinglist2.MainActivity" >
+            android:parentActivityName="com.radeksukup.shoppinglist2.MainActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.radeksukup.shoppinglist2.MainActivity" />
         </activity>
         <activity
             android:name="com.radeksukup.shoppinglist2.ShowProductsActivity"
+            android:icon="@drawable/ic_launcher"
             android:label="@string/title_activity_show_products"
-            android:screenOrientation="portrait"
-            android:parentActivityName="com.radeksukup.shoppinglist2.ShowCategoriesActivity" >
+            android:parentActivityName="com.radeksukup.shoppinglist2.ShowCategoriesActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.radeksukup.shoppinglist2.ShowCategoriesActivity" />
+        </activity>
+        <activity
+            android:name="com.radeksukup.shoppinglist2.AboutApplicationActivity"
+            android:label="@string/menu_options_about"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

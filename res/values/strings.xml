@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Nákupní seznam</string>
-    <string name="menu_settings">Nastavení</string>
     <string name="create_new_shopping_list">Napsat nákup</string>
     <string name="send_sms">Poslat jako SMS</string>
     <string name="add_next">Přidat další</string>
@@ -12,6 +11,7 @@
     <string name="title_activity_show_categories">Vyberte kategorii</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_show_products">Vyberte produkty</string>
+    <string name="title_activity_about_application">O aplikaci</string>
     <string name="add_product">Přidat</string>
     <string name="update_product">Změnit</string>
     <string name="remove_product">Odebrat</string>
@@ -21,15 +21,24 @@
     <string name="quantity_type2">kg</string>
     <string name="quantity_type3">dkg</string>
     <string name="quantity_type4">l</string>
+
     <string-array name="toast_messages">
-        <item >Položka přidána</item>
-        <item >Položka aktualizována</item>
-        <item >Položka odebrána</item>
-        <item >Seznam vymazán</item>
+        <item>Položka přidána</item>
+        <item>Položka aktualizována</item>
+        <item>Položka odebrána</item>
+        <item>Seznam vymazán</item>
+        <item>Zadána neplatná hodnota</item>
     </string-array>
+
     <string name="confirm_dialog_title">Už máte vše!</string>
     <string name="confirm_dialog_message">Chcete seznam vymazat?</string>
     <string name="confirm_dialog_yes_button">Ano</string>
     <string name="confirm_dialog_no_button">Ještě ne!</string>
+
+    <string name="menu_settings">Nastavení</string>
+    <string name="menu_options_about">O aplikaci</string>
+    
+    <string name="copyright">\u00A9 2013, Radek Sukup, Jana Michnová</string>
+    <string name="link">http://radeksukup.com</string>
 
 </resources>

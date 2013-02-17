@@ -7,14 +7,17 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -24,6 +27,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		ShoppingList sl = (ShoppingList) getApplication();
+		
 		int disabledItems = 0;
 		boolean locked = false;
 		ArrayList<ShoppingListItem> items = null;
@@ -51,11 +55,6 @@ public class MainActivity extends Activity {
 	}
 	
 	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-	}
-	
-	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		ShoppingList sl = (ShoppingList) getApplication();
 		
@@ -73,10 +72,23 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	 @Override
-	 public void onConfigurationChanged(Configuration newConfig) {
-		 super.onConfigurationChanged(newConfig);
-	 }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		 switch (item.getItemId()) {
+		case R.id.about: 
+			Intent intent = new Intent(this, AboutApplicationActivity.class);
+			startActivity(intent);
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+	}
 	
 	/*
 	 * Starts an activity which contains list of categories.
@@ -84,6 +96,7 @@ public class MainActivity extends Activity {
 	public void showCategories (View view) {
 		Intent intent = new Intent(this, ShowCategoriesActivity.class);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 	}
 	
 	/*
@@ -110,9 +123,18 @@ public class MainActivity extends Activity {
 		ShoppingList sl = (ShoppingList) getApplication();
 		ArrayList<ShoppingListItem> items = sl.getItems();
 		String smsBody = "";
+		double quantity;
+		String castedQuantity;
 	
 		for (int i = 0; i < items.size(); i++) {
-			smsBody += items.get(i).getTitle() + " " + Double.toString(items.get(i).getQuantity()) + " " + items.get(i).getQuantityType();
+			quantity = items.get(i).getQuantity();
+			castedQuantity = Double.toString(quantity);
+			
+			if (quantity % 1.0 == 0) { // if quantity has no decimal part => casts it to integer
+				castedQuantity = String.valueOf((int) items.get(i).getQuantity());
+			}
+			
+			smsBody += items.get(i).getTitle() + " " + castedQuantity + " " + items.get(i).getQuantityType();
 			if (i + 1 != items.size()) {
 				smsBody += ",\n";
 			} else {
@@ -153,7 +175,13 @@ public class MainActivity extends Activity {
 				if (sl.isLocked()) { // shopping list is locked
 					
 					if (!item.isDisabled()) {
-						view.setAlpha((float) 0.3);
+						view.setAlpha((float) 0.3); // set transparency on selected item
+						
+						TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
+						TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
+						tv1.setPaintFlags(tv1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through text of title
+						tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike throught quantity and quantity type
+						
 						item.setDisabled(); // disable selected item in model
 						sl.disabledItems++; // increase count of disabled items
 					}

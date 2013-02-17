@@ -6,6 +6,7 @@ package com.radeksukup.shoppinglist2;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,12 +51,17 @@ public class ShoppingListItemAdapter extends ArrayAdapter<ShoppingListItem> {
 			item = convertView;
 		}
 		
-		TextView tv = (TextView) item.findViewById(android.R.id.text1);
-		tv.setText(getItem(position).toString());
+		TextView tv1 = (TextView) item.findViewById(android.R.id.text1);
+		TextView tv2 = (TextView) item.findViewById(android.R.id.text2);
+		
+		tv1.setText(getItem(position).toString());
+		tv2.setText(getItem(position).getQuantityAndType());
 		
 		ShoppingListItem currentItem = items.get(position);
 		if (currentItem.isDisabled()) {
-			item.setAlpha((float) 0.3);
+			item.setAlpha((float) 0.3); // set transparency on whole item
+			tv1.setPaintFlags(tv1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through text of title
+			tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike throught quantity and quantity type
 		}
 		
 		return item;

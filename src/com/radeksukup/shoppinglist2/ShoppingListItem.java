@@ -75,7 +75,17 @@ public class ShoppingListItem implements Parcelable {
 
 	@Override
 	public String toString() {
-		return title + " " + (int) quantity + " " + quantityType;
+		return title;
+	}
+	
+	public String getQuantityAndType() {
+		String castedQuantity = String.valueOf(quantity);
+		
+		if (quantity % 1.0 == 0) {
+			castedQuantity = String.valueOf((int) quantity);
+		}
+		
+		return castedQuantity + " " + quantityType;
 	}
 	
 	public static final Parcelable.Creator<ShoppingListItem> CREATOR = new Creator<ShoppingListItem>() {

@@ -8,7 +8,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 10;
+	private static final int DATABASE_VERSION = 11;
 	
 	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
@@ -516,7 +516,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Deodorant', 13)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Prášek na prání', 13)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Aviváž', 13)");
-	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Osvěžovač vzduchu', 13)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Osvěžovač vzduchu ve spreji', 13)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Osvěžovač vzduchu tuhý', 13)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Odstraňovač skvrn', 13)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Jar na nádobí', 13)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tablety do myčky', 13)");

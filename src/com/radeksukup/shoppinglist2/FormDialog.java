@@ -35,7 +35,13 @@ public class FormDialog extends DialogFragment {
 		ShoppingListItem existingItem = sl.getItem(productId);
 		if (existingItem != null) { // item exists
 			EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput);
-			quantityInput.setText(Float.toString((float) existingItem.getQuantity())); // set value entered by user
+			String castedQuantity = String.valueOf((Double) existingItem.getQuantity());
+			
+			if ((Double) existingItem.getQuantity() % 1.0 == 0) { // if quantity has no decimal part => casts it to integer
+				castedQuantity = String.valueOf((int) existingItem.getQuantity());
+			}
+			
+			quantityInput.setText(castedQuantity); // set value entered by user
 			
 			RadioGroup rg = (RadioGroup) dialogView.findViewById(R.id.quantityType);
 			int radiosCount = rg.getChildCount(); // get count of radio buttons
@@ -60,7 +66,11 @@ public class FormDialog extends DialogFragment {
 			public void onClick(DialogInterface dialog, int id) {
 				// get quantity
 				EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput); // find text field by id
-				if (!quantityInput.getText().toString().equals("")) {
+				
+				String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+				String toastMessage;
+				
+				if (!quantityInput.getText().toString().equals("") && Double.parseDouble(quantityInput.getText().toString()) > 0) {
 					double quantity = Double.parseDouble(quantityInput.getText().toString()); // get value of text field
 					
 					// get checked quantity type
@@ -70,8 +80,6 @@ public class FormDialog extends DialogFragment {
 					String quantityType = checkedRadio.getText().toString(); // get value of checked radio
 					
 					ShoppingListItem item = new ShoppingListItem(productId, title, quantity, quantityType);
-					String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
-					String toastMessage;
 					if (sl.itemExists(productId)) {
 						sl.updateItem(item); // update existing in shopping list
 						toastMessage = toastMessages[1]; // set toast message for adding
@@ -85,9 +93,12 @@ public class FormDialog extends DialogFragment {
 						shoppingList.invalidateViews(); // invalidate current shoppingList view => make a refresh of list
 					}
 					
-					// show toast message
-					Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+				} else {
+					toastMessage = toastMessages[4]; // set toast message for invalid quantity (zero or nothing entered)
 				}
+				
+				// show toast message
+				Toast.makeText(getActivity().getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
 				
 			}
 		}).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

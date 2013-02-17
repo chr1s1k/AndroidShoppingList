@@ -52,12 +52,18 @@ public class ShowCategoriesActivity extends ListActivity {
         });
 	}
 	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+	}
+	
 	public void showProducts(String categoryTitle, int categoryId) {
 		Intent intent = new Intent(this, ShowProductsActivity.class);
 		intent.putExtra("categoryTitle", categoryTitle);
 		intent.putExtra("categoryId", categoryId);
 		startActivity(intent);
-//		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 	}
 
 	@Override
@@ -79,6 +85,11 @@ public class ShowCategoriesActivity extends ListActivity {
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
 			NavUtils.navigateUpFromSameTask(this);
+			return true;
+
+		case R.id.about: 
+			Intent intent = new Intent(this, AboutApplicationActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

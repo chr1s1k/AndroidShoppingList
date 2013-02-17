@@ -10,68 +10,85 @@ package com.radeksukup.shoppinglist2;
 public final class R {
     public static final class anim {
         public static final int slide_in_left=0x7f040000;
-        public static final int slide_out_left=0x7f040001;
+        public static final int slide_in_right=0x7f040001;
+        public static final int slide_out_left=0x7f040002;
+        public static final int slide_out_right=0x7f040003;
     }
     public static final class array {
-        public static final int toast_messages=0x7f060000;
+        public static final int toast_messages=0x7f070000;
     }
     public static final class attr {
+    }
+    public static final class color {
+        public static final int black=0x7f050000;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int addNextButton=0x7f090003;
-        public static final int clearCurrentListButton=0x7f090005;
-        public static final int lockCurrentListButton=0x7f090004;
-        public static final int menu_settings=0x7f09000c;
-        public static final int quantityInput=0x7f090006;
-        public static final int quantityType=0x7f090007;
-        public static final int quantityType1=0x7f090008;
-        public static final int quantityType2=0x7f09000a;
-        public static final int quantityType3=0x7f090009;
-        public static final int quantityType4=0x7f09000b;
-        public static final int sendSmsButton=0x7f090001;
-        public static final int shoppingList=0x7f090002;
-        public static final int showCategoriesButton=0x7f090000;
+        public static final int about=0x7f0a000f;
+        public static final int addNextButton=0x7f0a0006;
+        public static final int app_name_version=0x7f0a0000;
+        public static final int clearCurrentListButton=0x7f0a0008;
+        public static final int copyright=0x7f0a0001;
+        public static final int link=0x7f0a0002;
+        public static final int lockCurrentListButton=0x7f0a0007;
+        public static final int menu_settings=0x7f0a0010;
+        public static final int quantityInput=0x7f0a0009;
+        public static final int quantityType=0x7f0a000a;
+        public static final int quantityType1=0x7f0a000b;
+        public static final int quantityType2=0x7f0a000d;
+        public static final int quantityType3=0x7f0a000c;
+        public static final int quantityType4=0x7f0a000e;
+        public static final int sendSmsButton=0x7f0a0004;
+        public static final int shoppingList=0x7f0a0005;
+        public static final int showCategoriesButton=0x7f0a0003;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int activity_show_categories=0x7f030001;
-        public static final int activity_show_products=0x7f030002;
-        public static final int add_form_dialog=0x7f030003;
-        public static final int shopping_list_item=0x7f030004;
+        public static final int activity_about_application=0x7f030000;
+        public static final int activity_base=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_show_categories=0x7f030003;
+        public static final int activity_show_products=0x7f030004;
+        public static final int add_form_dialog=0x7f030005;
+        public static final int shopping_list_item=0x7f030006;
     }
     public static final class menu {
-        public static final int activity_main=0x7f080000;
-        public static final int activity_show_categories=0x7f080001;
-        public static final int activity_show_products=0x7f080002;
+        public static final int activity_about_application=0x7f090000;
+        public static final int activity_base=0x7f090001;
+        public static final int activity_main=0x7f090002;
+        public static final int activity_show_categories=0x7f090003;
+        public static final int activity_show_products=0x7f090004;
     }
     public static final class string {
-        public static final int add_next=0x7f050004;
-        public static final int add_product=0x7f05000b;
-        public static final int adding_done=0x7f050005;
-        public static final int app_name=0x7f050000;
-        public static final int cancel=0x7f05000e;
-        public static final int clear_current_shopping_list=0x7f050006;
-        public static final int confirm_dialog_message=0x7f050015;
-        public static final int confirm_dialog_no_button=0x7f050017;
-        public static final int confirm_dialog_title=0x7f050014;
-        public static final int confirm_dialog_yes_button=0x7f050016;
-        public static final int create_new_shopping_list=0x7f050002;
-        public static final int menu_settings=0x7f050001;
-        public static final int quantity_input_placeholder=0x7f05000f;
-        public static final int quantity_type1=0x7f050010;
-        public static final int quantity_type2=0x7f050011;
-        public static final int quantity_type3=0x7f050012;
-        public static final int quantity_type4=0x7f050013;
-        public static final int remove_product=0x7f05000d;
-        public static final int send_sms=0x7f050003;
-        public static final int shopping_list_header=0x7f050007;
-        public static final int title_activity_main=0x7f050009;
-        public static final int title_activity_show_categories=0x7f050008;
-        public static final int title_activity_show_products=0x7f05000a;
-        public static final int update_product=0x7f05000c;
+        public static final int add_next=0x7f060003;
+        public static final int add_product=0x7f06000b;
+        public static final int adding_done=0x7f060004;
+        public static final int app_name=0x7f060000;
+        public static final int cancel=0x7f06000e;
+        public static final int clear_current_shopping_list=0x7f060005;
+        public static final int confirm_dialog_message=0x7f060015;
+        public static final int confirm_dialog_no_button=0x7f060017;
+        public static final int confirm_dialog_title=0x7f060014;
+        public static final int confirm_dialog_yes_button=0x7f060016;
+        public static final int copyright=0x7f06001a;
+        public static final int create_new_shopping_list=0x7f060001;
+        public static final int link=0x7f06001b;
+        public static final int menu_options_about=0x7f060019;
+        public static final int menu_settings=0x7f060018;
+        public static final int quantity_input_placeholder=0x7f06000f;
+        public static final int quantity_type1=0x7f060010;
+        public static final int quantity_type2=0x7f060011;
+        public static final int quantity_type3=0x7f060012;
+        public static final int quantity_type4=0x7f060013;
+        public static final int remove_product=0x7f06000d;
+        public static final int send_sms=0x7f060002;
+        public static final int shopping_list_header=0x7f060006;
+        public static final int title_activity_about_application=0x7f06000a;
+        public static final int title_activity_main=0x7f060008;
+        public static final int title_activity_show_categories=0x7f060007;
+        public static final int title_activity_show_products=0x7f060009;
+        public static final int update_product=0x7f06000c;
     }
     public static final class style {
         /** 
@@ -95,10 +112,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
 }
