@@ -61,7 +61,7 @@ public class ShoppingListItemAdapter extends ArrayAdapter<ShoppingListItem> {
 		if (currentItem.isDisabled()) {
 			item.setAlpha((float) 0.3); // set transparency on whole item
 			tv1.setPaintFlags(tv1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through text of title
-			tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike throught quantity and quantity type
+			tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through quantity and quantity type
 		}
 		
 		return item;

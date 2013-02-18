@@ -2,21 +2,16 @@ package com.radeksukup.shoppinglist2;
 
 import java.util.List;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
-public class ShowCategoriesActivity extends ListActivity {
+public class ShowCategoriesActivity extends Activity {
 
 	private DataSource dataSource;
 
@@ -35,21 +30,44 @@ public class ShowCategoriesActivity extends ListActivity {
         dataSource.open();
         final List<Category> categories = dataSource.getCategories();
         dataSource.close();
-
-        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1, categories);
-        ListView categoriesList = getListView(); // get ListView component from current activity
-
-        categoriesList.setAdapter(adapter);
-        categoriesList.setOnItemClickListener(new OnItemClickListener () { // bind click handler on item in listview
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				String categoryTitle = ((TextView) view).getText().toString(); // get category title
-				int categoryId = categories.get(position).getId(); // get category id
-				showProducts(categoryTitle, categoryId);
-			}
+        
+        LinearLayout layoutWrapper = (LinearLayout) findViewById(R.id.categoriesLayout); // get categories linear layout defined in xml
+        
+        int rows = categories.size() / 3;
+        
+        if (categories.size() % 3 != 0) {
+        	rows++;
+        }
+        
+        for (int i = 0; i < categories.size(); i++) {
+        	int cat = i + 1;
         	
-        });
+        	if ((i + 1) % 3 == 1) {
+        		System.out.println("<LinearLayout>");
+        		System.out.println("Kategorie " + cat);
+        	} else if ((i + 1) % 3 == 0) {
+        		System.out.println("Kategorie " + cat);
+				System.out.println("</LinearLayout>");
+			} else {
+				System.out.println("Kategorie " + cat);
+			}
+			
+		}
+//
+//        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1, categories);
+//        ListView categoriesList = getListView(); // get ListView component from current activity
+//
+//        categoriesList.setAdapter(adapter);
+//        categoriesList.setOnItemClickListener(new OnItemClickListener () { // bind click handler on item in listview
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//				String categoryTitle = ((TextView) view).getText().toString(); // get category title
+//				int categoryId = categories.get(position).getId(); // get category id
+//				showProducts(categoryTitle, categoryId);
+//			}
+//        	
+//        });
 	}
 	
 	@Override
