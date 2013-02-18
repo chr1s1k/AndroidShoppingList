@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class ShowCategoriesActivity extends Activity {
@@ -31,26 +35,59 @@ public class ShowCategoriesActivity extends Activity {
         final List<Category> categories = dataSource.getCategories();
         dataSource.close();
         
-        LinearLayout layoutWrapper = (LinearLayout) findViewById(R.id.categoriesLayout); // get categories linear layout defined in xml
+        LinearLayout parentLayout = (LinearLayout) findViewById(R.id.categoriesLayout); // get categories linear layout defined in xml
+        parentLayout.removeAllViews();
         
         int rows = categories.size() / 3;
         
         if (categories.size() % 3 != 0) {
         	rows++;
         }
-        
-        for (int i = 0; i < categories.size(); i++) {
-        	int cat = i + 1;
+
+        for (int i = 0; i < rows; i++) {
         	
-        	if ((i + 1) % 3 == 1) {
-        		System.out.println("<LinearLayout>");
-        		System.out.println("Kategorie " + cat);
-        	} else if ((i + 1) % 3 == 0) {
-        		System.out.println("Kategorie " + cat);
-				System.out.println("</LinearLayout>");
-			} else {
-				System.out.println("Kategorie " + cat);
+        	LinearLayout row = new LinearLayout(this);
+        	row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+        	
+        	
+        	for (int j = 0; j < 3; j++) {
+				Button categoryButton = new Button(this); // create new button
+				
+				int index = j + (i * 3);
+				
+				if (index != categories.size()) {
+					categoryButton.setText(categories.get(index).getTitle()); // set text of button (category title)
+					categoryButton.setId(index);
+				}
+				
+				LayoutParams params = new LinearLayout.LayoutParams(
+                        LayoutParams.MATCH_PARENT,
+                        LayoutParams.MATCH_PARENT, 1.0f);
+				
+				categoryButton.setLayoutParams(params); // set layout params
+				categoryButton.setTextSize(10.0f); // set font size
+				categoryButton.setHeight(150); // set height of button in pixels
+				categoryButton.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.button_image), null, null); // set image background positioned on top
+				
+				if (categoryButton.getText().equals("")) { // if there is no category left, create a blank fake button a hide it
+					categoryButton.setVisibility(View.INVISIBLE);
+				}
+				
+				categoryButton.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View view) {
+						int position = view.getId();
+						int categoryId = categories.get(position).getId();
+						String categoryTitle = categories.get(position).getTitle();
+						showProducts(categoryTitle, categoryId);
+					}
+				});
+				
+				row.addView(categoryButton); // add button into current row
 			}
+        	
+        	parentLayout.addView(row); // add row into parent layout
 			
 		}
 //

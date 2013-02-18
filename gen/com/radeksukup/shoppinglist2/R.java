@@ -52,7 +52,8 @@ public final class R {
         public static final int activity_show_categories=0x7f030002;
         public static final int activity_show_products=0x7f030003;
         public static final int add_form_dialog=0x7f030004;
-        public static final int shopping_list_item=0x7f030005;
+        public static final int categories_button=0x7f030005;
+        public static final int shopping_list_item=0x7f030006;
     }
     public static final class menu {
         public static final int activity_about_application=0x7f090000;

@@ -11,28 +11,6 @@
     android:orientation="vertical"
     tools:context=".ShowCategoriesActivity" >
 
-<!--     <ListView -->
-<!--         android:id="@android:id/list" -->
-<!--         android:layout_width="match_parent" -->
-<!--         android:layout_height="wrap_content" > -->
-<!--     </ListView> -->
-
-<!--     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"> -->
-<!--         <Button android:id="@+id/button1" android:drawableTop="@drawable/button_image" android:text="Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button> -->
-<!--         <Button android:id="@+id/button2" android:drawableTop="@drawable/button_image" android:text="Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button> -->
-<!--         <Button android:id="@+id/button3" android:drawableTop="@drawable/button_image" android:text="Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button> -->
-<!--     </LinearLayout> -->
-<!--     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"> -->
-<!--         <Button android:id="@+id/Button01" android:text="Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button> -->
-<!--         <Button android:id="@+id/Button02" android:text="Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button> -->
-<!--         <Button android:id="@+id/Button03" android:text="Button" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"></Button> -->
-<!--     </LinearLayout> -->
-<!--     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent"> -->
-<!--         <Button android:id="@+id/button1" android:text="Button" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp"></Button> -->
-<!--         <Button android:id="@+id/button2" android:text="Button" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp"></Button> -->
-<!--         <Button android:id="@+id/button3" android:text="Button" android:layout_weight="1" android:layout_height="wrap_content" android:layout_width="0dp"></Button> -->
-<!--     </LinearLayout> -->
-
 </LinearLayout>
 
 </ScrollView>

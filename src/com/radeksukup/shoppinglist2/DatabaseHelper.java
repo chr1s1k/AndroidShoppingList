@@ -8,7 +8,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 	
 	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
@@ -33,16 +33,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Ovoce');");
 		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Zelenina');");
 		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Pečivo');");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Konzervy / zavařeniny / dresingy')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Maso / uzeniny')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Mléčné výrobky / sýry')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Rýže / těstoviny / luštěniny')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Sladkosti / slanosti')");
+		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Konzervy, zavařeniny, dresingy')");
+		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Maso, uzeniny')");
+		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Mléčné výrobky, sýry')");
+		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Rýže, těstoviny, luštěniny')");
+		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Sladkosti, slanosti')");
 		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Nealko nápoje')");
 		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Alkoholické nápoje')");
 		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Mražené výrobky')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Koření / ochucovadla / pečení')");
-	    db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Drogerie / Hygienické potřeby')");
+		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Koření, ochucovadla, pečení')");
+	    db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Drogerie, Hygienické potřeby')");
 	    db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Domácí potřeby')");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Ananas', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Jablka', 1)");
