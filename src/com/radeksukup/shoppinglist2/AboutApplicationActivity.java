@@ -3,6 +3,7 @@ package com.radeksukup.shoppinglist2;
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spannable;
@@ -16,6 +17,13 @@ public class AboutApplicationActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// Show the Up button in the action bar.
+		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			// Show the Up button in the action bar.
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+		
 		setContentView(R.layout.activity_about_application);
 		
 		PackageInfo pInfo = null;

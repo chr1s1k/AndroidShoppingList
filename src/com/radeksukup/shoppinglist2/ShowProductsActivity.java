@@ -2,9 +2,11 @@ package com.radeksukup.shoppinglist2;
 
 import java.util.List;
 
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -15,7 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ShowProductsActivity extends ListActivity {
+public class ShowProductsActivity extends FragmentActivity {
 	
 	private DataSource dataSource;
 
@@ -24,7 +26,13 @@ public class ShowProductsActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_products);
 		// Show the Up button in the action bar.
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			// Show the Up button in the action bar.
+            getActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+		
+		
 		Intent intent = getIntent();
 		String categoryTitle = intent.getExtras().getString("categoryTitle");
 		int categoryId = intent.getExtras().getInt("categoryId");
@@ -36,7 +44,7 @@ public class ShowProductsActivity extends ListActivity {
 		dataSource.close();
 		
 		ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
-		ListView productsList = getListView();
+		ListView productsList = (ListView) findViewById(R.id.products_list);
 		
 		productsList.setAdapter(adapter);
 		productsList.setOnItemClickListener(new OnItemClickListener () {
@@ -49,7 +57,7 @@ public class ShowProductsActivity extends ListActivity {
 				
 				((FormDialog) formDialog).setTitle(dialogTitle); // set dialog title
 				((FormDialog) formDialog).setProductId(productId); // set selected product id
-				formDialog.show(getFragmentManager(), "addFormDialog");
+				formDialog.show(getSupportFragmentManager(), "addFormDialog");
 			}
 			
 		});

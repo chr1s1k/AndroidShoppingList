@@ -3,23 +3,26 @@ package com.radeksukup.shoppinglist2;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment; // compatibility fix
+import android.support.v4.app.FragmentActivity; // compatibility fix
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +115,8 @@ public class MainActivity extends Activity {
 	
 	public void clearCurrentList (View view) {
 		DialogFragment confirmDialog = new ConfirmDialog();
-		confirmDialog.show(getFragmentManager(), "confirmDialog");
+//		confirmDialog.show(manager, tag)
+		confirmDialog.show(getSupportFragmentManager(), "confirmDialog");
 	}
 	
 	/*
@@ -175,20 +179,22 @@ public class MainActivity extends Activity {
 				if (sl.isLocked()) { // shopping list is locked
 					
 					if (!item.isDisabled()) {
-						view.setAlpha((float) 0.3); // set transparency on selected item
 						
 						TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
 						TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
+						
 						tv1.setPaintFlags(tv1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through text of title
 						tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike throught quantity and quantity type
-						
+						tv1.setTextColor(getResources().getColor(R.color.light_gray));
+						tv2.setTextColor(getResources().getColor(R.color.light_gray));
+
 						item.setDisabled(); // disable selected item in model
 						sl.disabledItems++; // increase count of disabled items
 					}
 					
 					if (sl.hasAllItemsDisabled()) { // if all items are disabled show confirm dialog
 						DialogFragment confirmDialog = new ConfirmDialog();
-						confirmDialog.show(getFragmentManager(), "confirmDialog");
+						confirmDialog.show(getSupportFragmentManager(), "confirmDialog");
 					}
 				} else { // shopping list is unlocked => show update form dialog
 					DialogFragment formDialog = new FormDialog();
@@ -197,7 +203,7 @@ public class MainActivity extends Activity {
 					
 					((FormDialog) formDialog).setTitle(dialogTitle); // set dialog title
 					((FormDialog) formDialog).setProductId(productId); // set selected product id
-					formDialog.show(getFragmentManager(), "updateFormDialog");
+					formDialog.show(getSupportFragmentManager(), "updateFormDialog");
 				}
 			}
 		};

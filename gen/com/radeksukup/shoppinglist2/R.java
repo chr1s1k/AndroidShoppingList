@@ -21,13 +21,15 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f050000;
+        public static final int light_gray=0x7f050002;
+        public static final int white=0x7f050001;
     }
     public static final class drawable {
         public static final int button_image=0x7f020000;
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int about=0x7f0a0010;
+        public static final int about=0x7f0a0011;
         public static final int addNextButton=0x7f0a0006;
         public static final int app_name_version=0x7f0a0000;
         public static final int categoriesLayout=0x7f0a0009;
@@ -35,13 +37,14 @@ public final class R {
         public static final int copyright=0x7f0a0001;
         public static final int link=0x7f0a0002;
         public static final int lockCurrentListButton=0x7f0a0007;
-        public static final int menu_settings=0x7f0a0011;
-        public static final int quantityInput=0x7f0a000a;
-        public static final int quantityType=0x7f0a000b;
-        public static final int quantityType1=0x7f0a000c;
-        public static final int quantityType2=0x7f0a000e;
-        public static final int quantityType3=0x7f0a000d;
-        public static final int quantityType4=0x7f0a000f;
+        public static final int menu_settings=0x7f0a0012;
+        public static final int products_list=0x7f0a000a;
+        public static final int quantityInput=0x7f0a000b;
+        public static final int quantityType=0x7f0a000c;
+        public static final int quantityType1=0x7f0a000d;
+        public static final int quantityType2=0x7f0a000f;
+        public static final int quantityType3=0x7f0a000e;
+        public static final int quantityType4=0x7f0a0010;
         public static final int sendSmsButton=0x7f0a0004;
         public static final int shoppingList=0x7f0a0005;
         public static final int showCategoriesButton=0x7f0a0003;
