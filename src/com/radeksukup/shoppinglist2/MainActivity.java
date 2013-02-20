@@ -5,17 +5,14 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment; // compatibility fix
-import android.support.v4.app.FragmentActivity; // compatibility fix
+import android.support.v4.app.FragmentActivity; //compatibility fix
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -115,7 +112,6 @@ public class MainActivity extends FragmentActivity {
 	
 	public void clearCurrentList (View view) {
 		DialogFragment confirmDialog = new ConfirmDialog();
-//		confirmDialog.show(manager, tag)
 		confirmDialog.show(getSupportFragmentManager(), "confirmDialog");
 	}
 	

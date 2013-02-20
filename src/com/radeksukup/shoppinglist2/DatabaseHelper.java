@@ -8,18 +8,19 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 12;
+	private static final int DATABASE_VERSION = 28;
 	
 	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
 	public static final String CATEGORY_COLUMN_TITLE = "title";
+	public static final String CATEGORY_COLUMN_DRAWABLE = "drawable";
 	
 	public static final String PRODUCTS_TABLE = "products";
 	public static final String PRODUCT_COLUMN_ID = "id";
 	public static final String PRODUCT_COLUMN_TITLE = "title";
 	public static final String PRODUCT_COLUMN_CATEGORY_ID = "categoryId";
 	
-	private static final String TABLE_CATEGORIES_CREATE = "CREATE TABLE " + CATEGORIES_TABLE + " ( " + CATEGORY_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " + CATEGORY_COLUMN_TITLE + " VARCHAR(50) NOT NULL );";
+	private static final String TABLE_CATEGORIES_CREATE = "CREATE TABLE " + CATEGORIES_TABLE + " ( " + CATEGORY_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " + CATEGORY_COLUMN_TITLE + " VARCHAR(50) NOT NULL, " + CATEGORY_COLUMN_DRAWABLE + " INT NOT NULL );";
 	private static final String TABLE_PRODUCTS_CREATE = "CREATE TABLE " + PRODUCTS_TABLE + " ( " + PRODUCT_COLUMN_ID + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " + PRODUCT_COLUMN_TITLE + " VARCHAR(50) NOT NULL, " + PRODUCT_COLUMN_CATEGORY_ID + " INT NOT NULL );";
 
 	public DatabaseHelper(Context context) {
@@ -30,20 +31,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(TABLE_CATEGORIES_CREATE);
 		db.execSQL(TABLE_PRODUCTS_CREATE);
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Ovoce');");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Zelenina');");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Pečivo');");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Konzervy, zavařeniny, dresingy')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Maso, uzeniny')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Mléčné výrobky, sýry')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Rýže, těstoviny, luštěniny')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Sladkosti, slanosti')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Nealko nápoje')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Alkoholické nápoje')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Mražené výrobky')");
-		db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Koření, ochucovadla, pečení')");
-	    db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Drogerie, Hygienické potřeby')");
-	    db.execSQL("INSERT INTO categories (id, title) VALUES (null, 'Domácí potřeby')");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Ovoce', " + R.drawable.fruits + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Zelenina', " + R.drawable.vegetables + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Pečivo', " + R.drawable.rolls + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Konzervy, zavařeniny, dresingy', " + R.drawable.tins + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Maso, uzeniny', " + R.drawable.meat + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Mléčné výrobky, sýry', " + R.drawable.dairy_products + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Rýže, těstoviny, luštěniny', " + R.drawable.rice_pasta + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Sladkosti, slanosti', " + R.drawable.sweet_salt_products + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Nealko nápoje', " + R.drawable.non_alcoholic + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Alkoholické nápoje', " + R.drawable.alcohol + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Mražené výrobky', " + R.drawable.frozen_products + ")");
+		db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Koření, ochucovadla, pečení', " + R.drawable.spices + ")");
+	    db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Drogerie, Hygienické potřeby', " + R.drawable.toiletries + ")");
+	    db.execSQL("INSERT INTO categories (id, title, drawable) VALUES (null, 'Domácí potřeby', " + R.drawable.household_goods + ")");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Avokádo', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Ananas', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Jablka', 1)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Banány', 1)");
@@ -61,7 +63,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Brambory', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Okurka (hadovka)', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Okurky kyselé', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Ředkvičky', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Cibule', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Cibule červená', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Křen praný', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Salát hlávkový', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Česnek', 2)");
@@ -157,6 +161,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sardinky', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sleď', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hořčice plnotučná', 4)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hořčice dijon', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hořčice kremžská', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kečup sladký', 4)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kečup ostrý', 4)");
@@ -253,6 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sýr cihla', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tavený sýr', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Niva', 6)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Lučina', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Parmezán', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mozarella', 6)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zottarella', 6)");
@@ -299,6 +305,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Bebe sušenky', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Trubičky', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Twix', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Přesnídávka', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mars', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Snickers', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Mila', 8)");
@@ -310,6 +317,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tyčinky slané', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tyčinky sýrové', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Tyčinky bramborové', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sušené švestky', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sušený ananas', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sušené brusinky', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sušené rozinky', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sušené meruňky', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sušený kokos', 8)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Křížaly', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, '3Bit', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kinder Maxi King', 8)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kinder Bueno', 8)");
@@ -498,6 +512,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kyselina citrónová', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Želé cukrárenské', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Solamyl', 12)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Umělé sladidlo', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Bujón hovězí', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Bujón zeleninový', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Bujón kuřecí', 12)");

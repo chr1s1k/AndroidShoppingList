@@ -58,6 +58,7 @@ public class ShowCategoriesActivity extends Activity {
 				if (index != categories.size()) {
 					categoryButton.setText(categories.get(index).getTitle()); // set text of button (category title)
 					categoryButton.setId(index);
+					categoryButton.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(categories.get(index).getDrawable()), null, null); // set image background positioned on top
 				}
 				
 				LayoutParams params = new LinearLayout.LayoutParams(
@@ -65,10 +66,9 @@ public class ShowCategoriesActivity extends Activity {
                         LayoutParams.MATCH_PARENT, 1.0f);
 				
 				categoryButton.setLayoutParams(params); // set layout params
-				categoryButton.setTextSize(10.0f); // set font size
-				categoryButton.setHeight(150); // set height of button in pixels
-				categoryButton.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.button_image), null, null); // set image background positioned on top
-				
+				categoryButton.setTextSize(12.0f); // set font size
+//				categoryButton.setHeight(150); // set height of button in pixels
+
 				if (categoryButton.getText().equals("")) { // if there is no category left, create a blank fake button a hide it
 					categoryButton.setVisibility(View.INVISIBLE);
 				}
@@ -80,7 +80,8 @@ public class ShowCategoriesActivity extends Activity {
 						int position = view.getId();
 						int categoryId = categories.get(position).getId();
 						String categoryTitle = categories.get(position).getTitle();
-						showProducts(categoryTitle, categoryId);
+						int drawableId = categories.get(position).getDrawable();
+						showProducts(categoryTitle, categoryId, drawableId);
 					}
 				});
 				
@@ -113,10 +114,11 @@ public class ShowCategoriesActivity extends Activity {
 		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 	}
 	
-	public void showProducts(String categoryTitle, int categoryId) {
+	public void showProducts(String categoryTitle, int categoryId, int drawableId) {
 		Intent intent = new Intent(this, ShowProductsActivity.class);
 		intent.putExtra("categoryTitle", categoryTitle);
 		intent.putExtra("categoryId", categoryId);
+		intent.putExtra("drawableId", drawableId);
 		startActivity(intent);
 		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 	}

@@ -12,7 +12,7 @@ public class DataSource {
 
 	private SQLiteDatabase database;
 	private DatabaseHelper dbHelper;
-	private String[] categoryAllColumns = {dbHelper.CATEGORY_COLUMN_ID, dbHelper.CATEGORY_COLUMN_TITLE};
+	private String[] categoryAllColumns = {dbHelper.CATEGORY_COLUMN_ID, dbHelper.CATEGORY_COLUMN_TITLE, dbHelper.CATEGORY_COLUMN_DRAWABLE};
 	private String[] productAllColumns = {dbHelper.PRODUCT_COLUMN_ID, dbHelper.PRODUCT_COLUMN_TITLE, dbHelper.PRODUCT_COLUMN_CATEGORY_ID};
 
 	public DataSource(Context context) {
@@ -44,6 +44,7 @@ public class DataSource {
 			Category category = new Category();
 			category.setId(cursor.getInt(0));
 			category.setTitle(cursor.getString(1));
+			category.setDrawable(cursor.getInt(2));
 			categories.add(category);
 			cursor.moveToNext();
 		}

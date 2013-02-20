@@ -2,12 +2,9 @@ package com.radeksukup.shoppinglist2;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-//import android.app.DialogFragment;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +12,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+//import android.app.DialogFragment;
 
 public class FormDialog extends DialogFragment {
 	

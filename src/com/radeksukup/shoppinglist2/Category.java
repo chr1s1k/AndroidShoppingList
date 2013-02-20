@@ -4,6 +4,7 @@ public class Category {
 
 	private int id;
 	private String title;
+	private int drawable;
 
 	public int getId() {
 		return id;
@@ -24,6 +25,14 @@ public class Category {
 	@Override
 	public String toString() {
 		return title;
+	}
+
+	public int getDrawable() {
+		return drawable;
+	}
+
+	public void setDrawable(int drawable) {
+		this.drawable = drawable;
 	}
 
 }

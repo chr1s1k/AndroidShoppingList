@@ -2,12 +2,11 @@ package com.radeksukup.shoppinglist2;
 
 import java.util.List;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,18 +24,22 @@ public class ShowProductsActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_products);
+		
+		Intent intent = getIntent();
+		
 		// Show the Up button in the action bar.
 		// Make sure we're running on Honeycomb or higher to use ActionBar APIs
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			// Show the Up button in the action bar.
             getActionBar().setDisplayHomeAsUpEnabled(true);
+            int drawableId = intent.getExtras().getInt("drawableId");
+            getActionBar().setIcon(drawableId); // set icon of screen
         }
 		
-		
-		Intent intent = getIntent();
 		String categoryTitle = intent.getExtras().getString("categoryTitle");
 		int categoryId = intent.getExtras().getInt("categoryId");
-		setTitle(categoryTitle);
+		
+		setTitle(categoryTitle); // set title of screen
 		
 		dataSource = new DataSource(this);
 		dataSource.open();
