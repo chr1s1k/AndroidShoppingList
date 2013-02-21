@@ -5,6 +5,7 @@
     <string name="create_new_shopping_list">Napsat nákup</string>
     <string name="send_sms">Poslat jako SMS</string>
     <string name="add_next">Přidat další</string>
+    <string name="add_custom">Přidat vlastní</string>
     <string name="adding_done">Hotovo</string>
     <string name="clear_current_shopping_list">Mám nakoupeno</string>
     <string name="shopping_list_header">Váš nákup</string>
@@ -17,10 +18,12 @@
     <string name="remove_product">Odebrat</string>
     <string name="cancel">Storno</string>
     <string name="quantity_input_placeholder">Zadejte množství</string>
+    <string name="product_title_input_placeholder">Zadejte název produktu</string>
     <string name="quantity_type1">ks</string>
     <string name="quantity_type2">kg</string>
     <string name="quantity_type3">dkg</string>
     <string name="quantity_type4">l</string>
+    <string name="add_custom_form_header">Přidání vlastní položky</string>
 
     <string-array name="toast_messages">
         <item>Položka přidána</item>

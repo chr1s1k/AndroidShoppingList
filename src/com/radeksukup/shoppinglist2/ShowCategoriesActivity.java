@@ -67,7 +67,7 @@ public class ShowCategoriesActivity extends Activity {
 				
 				categoryButton.setLayoutParams(params); // set layout params
 				categoryButton.setTextSize(12.0f); // set font size
-//				categoryButton.setHeight(150); // set height of button in pixels
+				categoryButton.setHeight(160); // set height of button in pixels
 
 				if (categoryButton.getText().equals("")) { // if there is no category left, create a blank fake button a hide it
 					categoryButton.setVisibility(View.INVISIBLE);

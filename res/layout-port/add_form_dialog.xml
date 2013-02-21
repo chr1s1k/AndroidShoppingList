@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
+    
+    <EditText
+        android:id="@+id/productTitleInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="@string/product_title_input_placeholder"
+        android:inputType="text"
+        android:visibility="gone" >
+
+    </EditText>
 
     <EditText
         android:id="@+id/quantityInput"
@@ -13,8 +25,6 @@
         android:ems="10"
         android:hint="@string/quantity_input_placeholder"
         android:inputType="number|numberDecimal" >
-
-        <requestFocus />
     </EditText>
     
     <RadioGroup

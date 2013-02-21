@@ -105,6 +105,7 @@ public class MainActivity extends FragmentActivity {
 	public void lockCurrentList (View view) {
 		view.setVisibility(View.GONE);
 		findViewById(R.id.addNextButton).setVisibility(View.GONE);
+		findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 		findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
 		ShoppingList sl = (ShoppingList) getApplication();
 		sl.lock();
@@ -205,6 +206,17 @@ public class MainActivity extends FragmentActivity {
 		};
 	}
 	
+	public void showAddCustomForm(View view) {
+		DialogFragment addCustomFormDialog = new FormDialog();
+		int generatedId = (int) (Math.random()*100000);
+		String dialogTitle = getResources().getString(R.string.add_custom_form_header);
+		
+		((FormDialog) addCustomFormDialog).setTitle(dialogTitle); // set dialog title
+		((FormDialog) addCustomFormDialog).setProductId(generatedId); // set newly generated product id
+		((FormDialog) addCustomFormDialog).setCustomProduct(true); // tell the dialog that we are adding custom product
+		addCustomFormDialog.show(getSupportFragmentManager(), "addCustomFormDialog");
+	}
+	
 	/*
 	 * Renders layout of main activity according to current state of shopping list.
 	 */
@@ -215,10 +227,12 @@ public class MainActivity extends FragmentActivity {
 			findViewById(R.id.sendSmsButton).setVisibility(View.VISIBLE);
 			findViewById(R.id.showCategoriesButton).setVisibility(View.GONE);
 			findViewById(R.id.addNextButton).setVisibility(View.VISIBLE);
+			findViewById(R.id.addCustomButton).setVisibility(View.VISIBLE);
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.VISIBLE);
 			if (sl.isLocked()) {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
 				findViewById(R.id.addNextButton).setVisibility(View.GONE);
+				findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 				findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 			} else {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
@@ -229,6 +243,7 @@ public class MainActivity extends FragmentActivity {
 			findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 			findViewById(R.id.addNextButton).setVisibility(View.GONE);
+			findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 		}
 	}
 }

@@ -38,16 +38,23 @@
             android:layout_weight="1"
             android:onClick="showCategories"
             android:text="@string/add_next" />
-                         
+        
         <Button
-            android:id="@+id/lockCurrentListButton"
+            android:id="@+id/addCustomButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="lockCurrentList"
-            android:text="@string/adding_done" />
+            android:onClick="showAddCustomForm"
+            android:text="@string/add_custom" />
         
      </LinearLayout>
+     
+    <Button
+            android:id="@+id/lockCurrentListButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="lockCurrentList"
+            android:text="@string/adding_done" />
     
      <Button
         android:id="@+id/clearCurrentListButton"

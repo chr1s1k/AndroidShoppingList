@@ -27,11 +27,11 @@ public class ShoppingListItemAdapter extends ArrayAdapter<ShoppingListItem> {
 		this.items = items;
 		this.context = context;
 	}
-	
-	@Override
-	public int getViewTypeCount() {                 
 
-	    return getCount();
+	@Override
+	public int getViewTypeCount() {
+
+	    return 1000; // bad workaround
 	}
 
 	@Override
@@ -43,17 +43,17 @@ public class ShoppingListItemAdapter extends ArrayAdapter<ShoppingListItem> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View item;
-		
+
 		if (null == convertView) {
 			LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			item = mInflater.inflate(R.layout.shopping_list_item, null);
 		} else {
 			item = convertView;
 		}
-		
+
 		TextView tv1 = (TextView) item.findViewById(android.R.id.text1);
 		TextView tv2 = (TextView) item.findViewById(android.R.id.text2);
-		
+
 		tv1.setText(getItem(position).toString());
 		tv2.setText(getItem(position).getQuantityAndType());
 		

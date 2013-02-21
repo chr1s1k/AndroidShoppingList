@@ -12,12 +12,12 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-//import android.app.DialogFragment;
 
 public class FormDialog extends DialogFragment {
 	
 	private String title;
 	private int productId;
+	private boolean customProduct = false;
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class FormDialog extends DialogFragment {
 			}
 			
 			quantityInput.setText(castedQuantity); // set value entered by user
-			
+
 			RadioGroup rg = (RadioGroup) dialogView.findViewById(R.id.quantityType);
 			int radiosCount = rg.getChildCount(); // get count of radio buttons
 			for (int i = 0; i < radiosCount; i++) { // iterate over all radios children
@@ -59,6 +59,15 @@ public class FormDialog extends DialogFragment {
 			positiveButtonText = getResources().getString(R.string.update_product);
 		}
 		
+		// prepare form dialog view for adding custom product
+		if (customProduct) {
+			EditText productTitleInput = (EditText) dialogView.findViewById(R.id.productTitleInput);
+			
+			productTitleInput.setVisibility(View.VISIBLE);
+			productTitleInput.setFocusableInTouchMode(true);
+			productTitleInput.requestFocus();
+		}
+		
 		builder.setView(dialogView);
 		builder.setTitle(title)
 		.setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
@@ -68,11 +77,20 @@ public class FormDialog extends DialogFragment {
 				// get quantity
 				EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput); // find text field by id
 				
+				// get product title
+				EditText productTitleInput = (EditText) dialogView.findViewById(R.id.productTitleInput);
+				
 				String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
 				String toastMessage;
 				
-				if (!quantityInput.getText().toString().equals("") && Double.parseDouble(quantityInput.getText().toString()) > 0) {
+				// form validation
+				if ((customProduct && !productTitleInput.getText().toString().equals("") && !quantityInput.getText().toString().equals("") && Double.parseDouble(quantityInput.getText().toString()) > 0) || (!customProduct && !quantityInput.getText().toString().equals("") && Double.parseDouble(quantityInput.getText().toString()) > 0)) {
 					double quantity = Double.parseDouble(quantityInput.getText().toString()); // get value of text field
+
+					// get & set product title entered by user
+					if (customProduct) {
+						title = productTitleInput.getText().toString();
+					}
 					
 					// get checked quantity type
 					RadioGroup rg = (RadioGroup) dialogView.findViewById(R.id.quantityType); // find radio group by id
@@ -89,13 +107,14 @@ public class FormDialog extends DialogFragment {
 						toastMessage = toastMessages[0]; // set toast message for updating
 					}
 					
+					
 					ListView shoppingList = (ListView) getActivity().findViewById(R.id.shoppingList); // try to find shoppingList view
 					if (shoppingList != null) {
 						shoppingList.invalidateViews(); // invalidate current shoppingList view => make a refresh of list
 					}
 					
 				} else {
-					toastMessage = toastMessages[4]; // set toast message for invalid quantity (zero or nothing entered)
+					toastMessage = toastMessages[4]; // set toast message for invalid input (zero or nothing entered)
 				}
 				
 				// show toast message
@@ -122,6 +141,10 @@ public class FormDialog extends DialogFragment {
 
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+	
+	public void setCustomProduct(boolean customProduct) {
+		this.customProduct = customProduct;
 	}
 
 }
