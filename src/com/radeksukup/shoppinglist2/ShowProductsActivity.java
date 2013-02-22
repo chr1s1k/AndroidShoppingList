@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ShowProductsActivity extends FragmentActivity {
 	
@@ -54,7 +55,8 @@ public class ShowProductsActivity extends FragmentActivity {
 		searchInput = (EditText) findViewById(R.id.search_input);
 		searchInput.addTextChangedListener(filterTextWatcher); // enable filter
 		
-		adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
+//		adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
+		adapter = new ProductsListItemAdapter(this, android.R.layout.simple_list_item_1, products);
 		ListView productsList = (ListView) findViewById(R.id.products_list);
 		
 		productsList.setAdapter(adapter);
@@ -63,8 +65,11 @@ public class ShowProductsActivity extends FragmentActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				DialogFragment formDialog = new FormDialog();
-				String dialogTitle = products.get(position).getTitle();
-				int productId = products.get(position).getId();
+				TextView tv = (TextView) view.findViewById(android.R.id.text2);
+				
+				int productId = Integer.parseInt(String.valueOf(tv.getText())); // get product id from custom textview in adapter
+				Product product = getProductById(products, productId); // get Product object by product id
+				String dialogTitle = product.getTitle(); // get product title
 				
 				((FormDialog) formDialog).setTitle(dialogTitle); // set dialog title
 				((FormDialog) formDialog).setProductId(productId); // set selected product id
@@ -72,6 +77,15 @@ public class ShowProductsActivity extends FragmentActivity {
 			}
 			
 		});
+	}
+	
+	private Product getProductById(List<Product> products, int id) {
+		for (int i = 0; i < products.size(); i++) {
+			if (products.get(i).getId() == id) {
+				return products.get(i);
+			}
+		}
+		return null;
 	}
 	
 	@Override
