@@ -8,8 +8,9 @@ import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment; // compatibility fix
-import android.support.v4.app.FragmentActivity; //compatibility fix
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+// compatibility fix
+//compatibility fix
 
 public class MainActivity extends FragmentActivity {
 
@@ -46,6 +49,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		renderMainScreen();
+
 	}
 
 	@Override

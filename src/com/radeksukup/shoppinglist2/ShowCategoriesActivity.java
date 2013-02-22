@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,12 +44,26 @@ public class ShowCategoriesActivity extends Activity {
         if (categories.size() % 3 != 0) {
         	rows++;
         }
+        
+        DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		int rowMinHeight = 0;
+		if (metrics.densityDpi <= 120) {
+			rowMinHeight = 80;
+		} else if (metrics.densityDpi <= 160) {
+			rowMinHeight = 100;
+		} else if (metrics.densityDpi <= 240) {
+			rowMinHeight = 200;
+    	} else {
+    		rowMinHeight = 240;
+    	}
 
         for (int i = 0; i < rows; i++) {
         	
         	LinearLayout row = new LinearLayout(this);
         	row.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-        	
+
+        	row.setMinimumHeight(rowMinHeight);
         	
         	for (int j = 0; j < 3; j++) {
 				Button categoryButton = new Button(this); // create new button
@@ -67,7 +82,8 @@ public class ShowCategoriesActivity extends Activity {
 				
 				categoryButton.setLayoutParams(params); // set layout params
 				categoryButton.setTextSize(12.0f); // set font size
-				categoryButton.setHeight(160); // set height of button in pixels
+//				categoryButton.setHeight(160); // set height of button in pixels
+//				categoryButton.setMinHeight(180);
 
 				if (categoryButton.getText().equals("")) { // if there is no category left, create a blank fake button a hide it
 					categoryButton.setVisibility(View.INVISIBLE);

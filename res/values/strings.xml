@@ -19,6 +19,7 @@
     <string name="cancel">Storno</string>
     <string name="quantity_input_placeholder">Zadejte množství</string>
     <string name="product_title_input_placeholder">Zadejte název produktu</string>
+    <string name="search_input_placeholder">Vyhledat</string>
     <string name="quantity_type1">ks</string>
     <string name="quantity_type2">kg</string>
     <string name="quantity_type3">dkg</string>

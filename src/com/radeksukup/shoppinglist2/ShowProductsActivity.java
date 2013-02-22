@@ -8,17 +8,22 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class ShowProductsActivity extends FragmentActivity {
 	
 	private DataSource dataSource;
+	private ArrayAdapter<Product> adapter = null;
+	private EditText searchInput = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,10 @@ public class ShowProductsActivity extends FragmentActivity {
 		final List<Product> products = dataSource.getProducts(categoryId);
 		dataSource.close();
 		
-		ArrayAdapter<Product> adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
+		searchInput = (EditText) findViewById(R.id.search_input);
+		searchInput.addTextChangedListener(filterTextWatcher); // enable filter
+		
+		adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
 		ListView productsList = (ListView) findViewById(R.id.products_list);
 		
 		productsList.setAdapter(adapter);
@@ -99,6 +107,30 @@ public class ShowProductsActivity extends FragmentActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private TextWatcher filterTextWatcher = new TextWatcher() {
+		
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before, int count) {
+			adapter.getFilter().filter(s);
+		}
+		
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+		}
+		
+		@Override
+		public void afterTextChanged(Editable s) {
+			
+		}
+	};
+	
+	@Override
+	protected void onDestroy() {
+	    super.onDestroy();
+	    searchInput.removeTextChangedListener(filterTextWatcher);
 	}
 
 }
