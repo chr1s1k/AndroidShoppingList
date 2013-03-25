@@ -2,11 +2,15 @@ package com.radeksukup.shoppinglist2;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebView.FindListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -28,14 +32,15 @@ public class FormDialog extends DialogFragment {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		// Inflate and set the layout for the dialog
 		final View dialogView = inflater.inflate(R.layout.add_form_dialog, null);
-		
+
 		// assign "add string" to positive button text
 		String positiveButtonText = getResources().getString(R.string.add_product);
-		
+
 		// check if item is already in shopping list
 		ShoppingListItem existingItem = sl.getItem(productId);
+		final EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput);
+
 		if (existingItem != null) { // item exists
-			EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput);
 			String castedQuantity = String.valueOf((Double) existingItem.getQuantity());
 			
 			if ((Double) existingItem.getQuantity() % 1.0 == 0) { // if quantity has no decimal part => casts it to integer
@@ -66,8 +71,23 @@ public class FormDialog extends DialogFragment {
 			productTitleInput.setVisibility(View.VISIBLE);
 			productTitleInput.setFocusableInTouchMode(true);
 			productTitleInput.requestFocus();
+		} else {
+			//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+			//imm.showSoftInput(quantityInput, InputMethodManager.SHOW_IMPLICIT);
+			
+			quantityInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+				
+				@Override
+				public void onFocusChange(View view, boolean hasFocus) {
+					if (hasFocus) {
+						//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+						//imm.showSoftInput(quantityInput, InputMethodManager.SHOW_IMPLICIT);
+						//getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+					}
+				}
+			});
 		}
-		
+
 		builder.setView(dialogView);
 		builder.setTitle(title)
 		.setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
@@ -129,6 +149,28 @@ public class FormDialog extends DialogFragment {
 			}
 		});
 		return builder.create();
+	}
+
+	public void onStart() {
+		super.onStart();
+		//System.out.println("Dialog started");
+		//EditText QInput = (EditText) getDialog().findViewById(R.id.quantityInput);
+		
+		//QInput.setFocusable(true);
+		//QInput.requestFocus();
+		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		//imm.showSoftInput(QInput, InputMethodManager.SHOW_IMPLICIT);
+		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		//imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+		//getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+	}
+	
+	public void onDismiss(DialogInterface dialog) {
+		super.onDismiss(dialog);
+		//System.out.println(getView().getWindowToken());
+		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		//imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
+		//imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
 	}
 	
 	public String getTitle() {

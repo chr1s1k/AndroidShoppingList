@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -51,7 +52,7 @@ public class ShowProductsActivity extends FragmentActivity {
 		dataSource.open();
 		final List<Product> products = dataSource.getProducts(categoryId);
 		dataSource.close();
-		
+
 		searchInput = (EditText) findViewById(R.id.search_input);
 		searchInput.addTextChangedListener(filterTextWatcher); // enable filter
 		
@@ -74,6 +75,7 @@ public class ShowProductsActivity extends FragmentActivity {
 				((FormDialog) formDialog).setTitle(dialogTitle); // set dialog title
 				((FormDialog) formDialog).setProductId(productId); // set selected product id
 				formDialog.show(getSupportFragmentManager(), "addFormDialog");
+				//formDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 			}
 			
 		});
