@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.webkit.WebView.FindListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -38,7 +37,7 @@ public class FormDialog extends DialogFragment {
 
 		// check if item is already in shopping list
 		ShoppingListItem existingItem = sl.getItem(productId);
-		final EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput);
+		EditText quantityInput = (EditText) dialogView.findViewById(R.id.quantityInput);
 
 		if (existingItem != null) { // item exists
 			String castedQuantity = String.valueOf((Double) existingItem.getQuantity());
@@ -71,21 +70,6 @@ public class FormDialog extends DialogFragment {
 			productTitleInput.setVisibility(View.VISIBLE);
 			productTitleInput.setFocusableInTouchMode(true);
 			productTitleInput.requestFocus();
-		} else {
-			//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-			//imm.showSoftInput(quantityInput, InputMethodManager.SHOW_IMPLICIT);
-			
-			quantityInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-				
-				@Override
-				public void onFocusChange(View view, boolean hasFocus) {
-					if (hasFocus) {
-						//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-						//imm.showSoftInput(quantityInput, InputMethodManager.SHOW_IMPLICIT);
-						//getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-					}
-				}
-			});
 		}
 
 		builder.setView(dialogView);
@@ -133,6 +117,11 @@ public class FormDialog extends DialogFragment {
 						shoppingList.invalidateViews(); // invalidate current shoppingList view => make a refresh of list
 					}
 					
+					EditText searchInput = (EditText) getActivity().findViewById(R.id.search_input);
+					if (searchInput != null) {
+						searchInput.setText(""); // clear text of search input
+					}
+					
 				} else {
 					toastMessage = toastMessages[4]; // set toast message for invalid input (zero or nothing entered)
 				}
@@ -153,24 +142,13 @@ public class FormDialog extends DialogFragment {
 
 	public void onStart() {
 		super.onStart();
-		//System.out.println("Dialog started");
-		//EditText QInput = (EditText) getDialog().findViewById(R.id.quantityInput);
-		
-		//QInput.setFocusable(true);
-		//QInput.requestFocus();
-		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		//imm.showSoftInput(QInput, InputMethodManager.SHOW_IMPLICIT);
-		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		//imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-		//getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 	}
 	
 	public void onDismiss(DialogInterface dialog) {
 		super.onDismiss(dialog);
-		//System.out.println(getView().getWindowToken());
-		//InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		//imm.hideSoftInputFromWindow(getActivity().getWindow().getDecorView().getWindowToken(), 0);
-		//imm.toggleSoftInput(0, InputMethodManager.HIDE_IMPLICIT_ONLY);
+		getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 	}
 	
 	public String getTitle() {

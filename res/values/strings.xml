@@ -38,6 +38,10 @@
     <string name="confirm_dialog_message">Chcete seznam vymazat?</string>
     <string name="confirm_dialog_yes_button">Ano</string>
     <string name="confirm_dialog_no_button">Ještě ne!</string>
+    
+    <string name="delete_dialog_message">Opravdu chcete tuto položku odebrat?</string>
+    <string name="delete_dialog_yes_button">Ano</string>
+    <string name="delete_dialog_no_button">Ne</string>
 
     <string name="menu_settings">Nastavení</string>
     <string name="menu_options_about">O aplikaci</string>

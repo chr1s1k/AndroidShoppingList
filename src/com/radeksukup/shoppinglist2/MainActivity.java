@@ -3,6 +3,7 @@ package com.radeksukup.shoppinglist2;
 import java.text.Normalizer;
 import java.util.ArrayList;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Paint;
@@ -13,9 +14,13 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -53,6 +58,15 @@ public class MainActivity extends FragmentActivity {
 	protected void onResume() {
 		super.onResume();
 		renderMainScreen();
+	}
+	
+	protected void onPause() {
+		super.onPause();
+		EditText hiddenText = (EditText) findViewById(R.id.hiddenText);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromInputMethod(hiddenText.getWindowToken(), 0);
+		//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+	    //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 	}
 	
 	@Override
@@ -164,7 +178,8 @@ public class MainActivity extends FragmentActivity {
 		ArrayAdapter<ShoppingListItem> adapter = new ShoppingListItemAdapter(this, R.layout.shopping_list_item, items);
 		
 		shoppingList.setAdapter(adapter);
-		shoppingList.setOnItemClickListener(shoppingListItemClickListener(sl, adapter)); // set on item click listener
+		shoppingList.setOnItemClickListener(shoppingListItemClickListener(sl, adapter)); // set on item click listener - for editing and disabling/enabling items
+		shoppingList.setOnItemLongClickListener(shoppingListLongClickListener(sl, adapter)); // set on item long click listener - for deleting items
 	}
 
 	private OnItemClickListener shoppingListItemClickListener(final ShoppingList sl, final ArrayAdapter<ShoppingListItem> adapter) {
@@ -176,24 +191,32 @@ public class MainActivity extends FragmentActivity {
 
 				if (sl.isLocked()) { // shopping list is locked
 					
-					if (!item.isDisabled()) {
-						
-						TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
-						TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
-						
+					TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
+					TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
+
+					if (!item.isDisabled()) { // item is enabled => disables it
 						tv1.setPaintFlags(tv1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through text of title
-						tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike throught quantity and quantity type
+						tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through quantity and quantity type
 						tv1.setTextColor(getResources().getColor(R.color.light_gray));
 						tv2.setTextColor(getResources().getColor(R.color.light_gray));
 
 						item.setDisabled(); // disable selected item in model
 						sl.disabledItems++; // increase count of disabled items
+					} else { // item is disabled => enables it
+						tv1.setPaintFlags(tv1.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+						tv2.setPaintFlags(tv2.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+						tv1.setTextColor(getResources().getColor(R.color.black));
+						tv2.setTextColor(getResources().getColor(R.color.black));
+
+						item.setEnabled();
+						sl.disabledItems--;
 					}
 					
 					if (sl.hasAllItemsDisabled()) { // if all items are disabled show confirm dialog
 						DialogFragment confirmDialog = new ConfirmDialog();
 						confirmDialog.show(getSupportFragmentManager(), "confirmDialog");
 					}
+
 				} else { // shopping list is unlocked => show update form dialog
 					DialogFragment formDialog = new FormDialog();
 					int productId = item.getId();
@@ -203,6 +226,26 @@ public class MainActivity extends FragmentActivity {
 					((FormDialog) formDialog).setProductId(productId); // set selected product id
 					formDialog.show(getSupportFragmentManager(), "updateFormDialog");
 				}
+			}
+		};
+	}
+	
+	private OnItemLongClickListener shoppingListLongClickListener(final ShoppingList sl, final ArrayAdapter<ShoppingListItem> adapter) {
+		return new OnItemLongClickListener() {
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				if (!sl.isLocked()) {
+					ShoppingListItem item = sl.getItemByIndex(position); // get selected item
+					int productId = item.getId();
+					String dialogTitle = item.getTitle();
+					
+					DialogFragment deleteDialog = new DeleteDialog();
+					((DeleteDialog) deleteDialog).setTitle(dialogTitle); // set dialog title
+					((DeleteDialog) deleteDialog).setProductId(productId); // set selected product id
+					deleteDialog.show(getSupportFragmentManager(), "deleteDialog"); // show delete dialog
+				}
+				return false;
 			}
 		};
 	}

@@ -2,6 +2,7 @@ package com.radeksukup.shoppinglist2;
 
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -75,7 +76,6 @@ public class ShowProductsActivity extends FragmentActivity {
 				((FormDialog) formDialog).setTitle(dialogTitle); // set dialog title
 				((FormDialog) formDialog).setProductId(productId); // set selected product id
 				formDialog.show(getSupportFragmentManager(), "addFormDialog");
-				//formDialog.getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 			}
 			
 		});
@@ -147,6 +147,16 @@ public class ShowProductsActivity extends FragmentActivity {
 	protected void onDestroy() {
 	    super.onDestroy();
 	    searchInput.removeTextChangedListener(filterTextWatcher);
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide soft keyboard after pausing the activity
+		EditText searchInput = (EditText) findViewById(R.id.search_input);
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromInputMethod(searchInput.getWindowToken(), 0);
 	}
 
 }

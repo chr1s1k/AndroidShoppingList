@@ -44,6 +44,13 @@ public class ShoppingList extends Application {
 	public void setLocked(boolean locked) {
 		this.locked = locked;
 	}
+
+	/*
+	 * Returns count of items in list.
+	 */
+	public int size() {
+		return items.size();
+	}
 	
 	/*
 	 * Adds items to list

@@ -63,4 +63,11 @@
         android:onClick="clearCurrentList"
         android:text="@string/clear_current_shopping_list" />
 
+     <EditText
+         android:id="@+id/hiddenText"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:ems="10"
+         android:visibility="gone" />
+
 </LinearLayout>

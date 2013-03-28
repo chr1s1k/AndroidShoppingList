@@ -72,6 +72,10 @@ public class ShoppingListItem implements Parcelable {
 	public void setDisabled() {
 		disabled = true;
 	}
+	
+	public void setEnabled() {
+		disabled = false;
+	}
 
 	@Override
 	public String toString() {
