@@ -1,14 +1,12 @@
 package com.radeksukup.shoppinglist2;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.Menu;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 public class AboutApplicationActivity extends Activity {

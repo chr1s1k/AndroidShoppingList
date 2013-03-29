@@ -142,8 +142,12 @@ public class FormDialog extends DialogFragment {
 
 	public void onStart() {
 		super.onStart();
-		InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+		
+		EditText searchInput = (EditText) getActivity().findViewById(R.id.search_input);
+		if ((searchInput != null && searchInput.getText().toString().equals("")) || searchInput == null) {
+			InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+		}
 	}
 	
 	public void onDismiss(DialogInterface dialog) {

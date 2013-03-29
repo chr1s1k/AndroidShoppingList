@@ -14,7 +14,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -64,9 +63,7 @@ public class MainActivity extends FragmentActivity {
 		super.onPause();
 		EditText hiddenText = (EditText) findViewById(R.id.hiddenText);
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromInputMethod(hiddenText.getWindowToken(), 0);
-		//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-	    //imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+		imm.hideSoftInputFromInputMethod(hiddenText.getWindowToken(), 0); // hide soft keyboard when activity is paused
 	}
 	
 	@Override
@@ -203,12 +200,12 @@ public class MainActivity extends FragmentActivity {
 						item.setDisabled(); // disable selected item in model
 						sl.disabledItems++; // increase count of disabled items
 					} else { // item is disabled => enables it
-						tv1.setPaintFlags(tv1.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+						tv1.setPaintFlags(tv1.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG)); // remove strike through text
 						tv2.setPaintFlags(tv2.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-						tv1.setTextColor(getResources().getColor(R.color.black));
+						tv1.setTextColor(getResources().getColor(R.color.black)); // set origin color
 						tv2.setTextColor(getResources().getColor(R.color.black));
 
-						item.setEnabled();
+						item.setEnabled(); // enable item
 						sl.disabledItems--;
 					}
 					
