@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,7 +33,7 @@ public class MainActivity extends FragmentActivity {
 		setContentView(R.layout.activity_main);
 		
 		ShoppingList sl = (ShoppingList) getApplication();
-		
+
 		int disabledItems = 0;
 		boolean locked = false;
 		ArrayList<ShoppingListItem> items = null;
@@ -56,11 +58,14 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		SharedPreferences pref = getPreferences(0);
+		System.out.println("Disabled items: " + String.valueOf(pref.getInt("disabled-items", 0)));
 		renderMainScreen();
 	}
 	
 	protected void onPause() {
 		super.onPause();
+		
 		EditText hiddenText = (EditText) findViewById(R.id.hiddenText);
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromInputMethod(hiddenText.getWindowToken(), 0); // hide soft keyboard when activity is paused
@@ -68,13 +73,13 @@ public class MainActivity extends FragmentActivity {
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
 		ShoppingList sl = (ShoppingList) getApplication();
 		
 		outState.putInt("disabled-items", sl.disabledItems);
 		outState.putBoolean("locked", sl.isLocked());
 		outState.putParcelableArrayList("shopping-list-items", sl.getItems());
 		
-		super.onSaveInstanceState(outState);
 	}
 
 	@Override
@@ -190,12 +195,14 @@ public class MainActivity extends FragmentActivity {
 					
 					TextView tv1 = (TextView) view.findViewById(android.R.id.text1);
 					TextView tv2 = (TextView) view.findViewById(android.R.id.text2);
+					ImageView icon = (ImageView) view.findViewById(android.R.id.icon);
 
 					if (!item.isDisabled()) { // item is enabled => disables it
 						tv1.setPaintFlags(tv1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through text of title
 						tv2.setPaintFlags(tv2.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG); // strike through quantity and quantity type
 						tv1.setTextColor(getResources().getColor(R.color.light_gray));
 						tv2.setTextColor(getResources().getColor(R.color.light_gray));
+						icon.setImageResource(R.drawable.check_mark_black); // display black check mark
 
 						item.setDisabled(); // disable selected item in model
 						sl.disabledItems++; // increase count of disabled items
@@ -204,6 +211,7 @@ public class MainActivity extends FragmentActivity {
 						tv2.setPaintFlags(tv2.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 						tv1.setTextColor(getResources().getColor(R.color.black)); // set origin color
 						tv2.setTextColor(getResources().getColor(R.color.black));
+						icon.setImageResource(R.drawable.check_mark_gray); // display gray check mark
 
 						item.setEnabled(); // enable item
 						sl.disabledItems--;

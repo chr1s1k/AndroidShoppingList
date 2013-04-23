@@ -26,21 +26,23 @@ public final class R {
     }
     public static final class drawable {
         public static final int alcohol=0x7f020000;
-        public static final int button_image=0x7f020001;
-        public static final int dairy_products=0x7f020002;
-        public static final int frozen_products=0x7f020003;
-        public static final int fruits=0x7f020004;
-        public static final int household_goods=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int meat=0x7f020007;
-        public static final int non_alcoholic=0x7f020008;
-        public static final int rice_pasta=0x7f020009;
-        public static final int rolls=0x7f02000a;
-        public static final int spices=0x7f02000b;
-        public static final int sweet_salt_products=0x7f02000c;
-        public static final int tins=0x7f02000d;
-        public static final int toiletries=0x7f02000e;
-        public static final int vegetables=0x7f02000f;
+        public static final int check_mark_black=0x7f020001;
+        public static final int check_mark_gray=0x7f020002;
+        public static final int dairy_products=0x7f020003;
+        public static final int frozen_products=0x7f020004;
+        public static final int fruits=0x7f020005;
+        public static final int household_goods=0x7f020006;
+        public static final int ic_launcher=0x7f020007;
+        public static final int icon_edit=0x7f020008;
+        public static final int meat=0x7f020009;
+        public static final int non_alcoholic=0x7f02000a;
+        public static final int rice_pasta=0x7f02000b;
+        public static final int rolls=0x7f02000c;
+        public static final int spices=0x7f02000d;
+        public static final int sweet_salt_products=0x7f02000e;
+        public static final int tins=0x7f02000f;
+        public static final int toiletries=0x7f020010;
+        public static final int vegetables=0x7f020011;
     }
     public static final class id {
         public static final int about=0x7f0a0015;
