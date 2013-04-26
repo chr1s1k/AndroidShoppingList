@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -58,8 +57,6 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		SharedPreferences pref = getPreferences(0);
-		System.out.println("Disabled items: " + String.valueOf(pref.getInt("disabled-items", 0)));
 		renderMainScreen();
 	}
 	
@@ -161,12 +158,17 @@ public class MainActivity extends FragmentActivity {
 		}
 		
 		// replace diacritics characters
-		smsBody = Normalizer.normalize(smsBody, Normalizer.Form.NFD);
-		smsBody = smsBody.replaceAll("[^\\p{ASCII}]", "");
+		smsBody = Utils.removeDiacritics(smsBody);
 		
 		intent.setData(Uri.parse("sms:"));
 		intent.putExtra("sms_body", smsBody);
 		startActivity(intent);
+	}
+	
+	public void readSms(View view) {
+		Intent intent = new Intent(this, ReadSmsActivity.class);
+		startActivity(intent);
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 	}
 	
 	/*

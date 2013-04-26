@@ -9,6 +9,9 @@
         android:minSdkVersion="10"
         android:targetSdkVersion="17" />
 
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <application
         android:name="com.radeksukup.shoppinglist2.ShoppingList"
         android:allowBackup="true"
@@ -51,6 +54,13 @@
         <activity
             android:name="com.radeksukup.shoppinglist2.AboutApplicationActivity"
             android:label="@string/menu_options_about"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.radeksukup.shoppinglist2.ReadSmsActivity"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/title_activity_read_sms"
+            android:parentActivityName="com.radeksukup.shoppinglist2.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
     </application>

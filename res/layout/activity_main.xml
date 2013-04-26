@@ -19,6 +19,13 @@
         android:layout_height="wrap_content"
         android:onClick="sendSms"
         android:text="@string/send_sms" />
+    
+    <Button
+        android:id="@+id/readSmsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="readSms"
+        android:text="@string/read_sms" />
         
     <ListView
         android:id="@+id/shoppingList"

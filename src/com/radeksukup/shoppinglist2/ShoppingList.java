@@ -112,11 +112,34 @@ public class ShoppingList extends Application {
 	}
 	
 	/*
+	 * Updates existing item in shopping list from SMS.
+	 */
+	public void updateItemFromSms(ShoppingListItem updatedItem) {
+		ShoppingListItem existingItem = getItem(updatedItem.getTitle());
+		existingItem.setQuantity(updatedItem.getQuantity());
+		existingItem.setQuantityType(updatedItem.getQuantityType());
+	}
+	
+	/*
+	 * @param product id
 	 * Returns a single item from shopping list if exists, otherwise null.
 	 */
 	public ShoppingListItem getItem(int id) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i).getId() == id) {
+				return items.get(i);
+			}
+		}
+		return null;
+	}
+	
+	/*
+	 * @param product title
+	 * Returns a single item from shopping list if exists, otherwise null.
+	 */
+	public ShoppingListItem getItem(String title) {
+		for (int i = 0; i < items.size(); i++) {
+			if (Utils.removeDiacritics(items.get(i).getTitle()).equals(Utils.removeDiacritics(title))) {
 				return items.get(i);
 			}
 		}
@@ -138,11 +161,25 @@ public class ShoppingList extends Application {
 	}
 	
 	/*
+	 * @param product id
 	 * Returns true if item already exists in current shopping list, otherwise false.
 	 */
 	public boolean itemExists(int id) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i).getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/*
+	 * @param product title
+	 * Returns true if item already exists in current shopping list, otherwise false.
+	 */
+	public boolean itemExists(String title) {
+		for (int i = 0; i < items.size(); i++) {
+			if (Utils.removeDiacritics(items.get(i).getTitle()).equals(Utils.removeDiacritics(title))) {
 				return true;
 			}
 		}
