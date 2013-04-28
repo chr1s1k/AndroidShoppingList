@@ -30,6 +30,7 @@ public class ConfirmDialog extends DialogFragment {
 					getActivity().findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
 					getActivity().findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
 					getActivity().findViewById(R.id.showCategoriesButton).setVisibility(View.VISIBLE);
+					getActivity().findViewById(R.id.readSmsButton).setVisibility(View.VISIBLE);
 					
 					// show toast message
 					String[] toastMessages = getResources().getStringArray(R.array.toast_messages);

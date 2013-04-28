@@ -116,8 +116,15 @@ public class ShoppingList extends Application {
 	 */
 	public void updateItemFromSms(ShoppingListItem updatedItem) {
 		ShoppingListItem existingItem = getItem(updatedItem.getTitle());
-		existingItem.setQuantity(updatedItem.getQuantity());
+		double quantity = existingItem.getQuantity() + updatedItem.getQuantity(); // old quantity + new quantity
+		
+		existingItem.setQuantity(quantity); // set new quantity
 		existingItem.setQuantityType(updatedItem.getQuantityType());
+		
+		if (existingItem.isDisabled()) {
+			existingItem.setEnabled(); // after merging re-enable the item
+			disabledItems--;
+		}
 	}
 	
 	/*

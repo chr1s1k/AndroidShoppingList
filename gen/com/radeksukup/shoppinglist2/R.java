@@ -21,6 +21,7 @@ public final class R {
     }
     public static final class color {
         public static final int black=0x7f050000;
+        public static final int gray=0x7f050003;
         public static final int light_gray=0x7f050002;
         public static final int white=0x7f050001;
     }
@@ -55,33 +56,35 @@ public final class R {
         public static final int vegetables=0x7f020011;
     }
     public static final class id {
-        public static final int about=0x7f0b0018;
-        public static final int action_settings=0x7f0b001a;
+        public static final int about=0x7f0b0019;
         public static final int addCustomButton=0x7f0b0008;
         public static final int addNextButton=0x7f0b0007;
         public static final int app_name_version=0x7f0b0000;
-        public static final int backButton=0x7f0b000d;
-        public static final int categoriesLayout=0x7f0b000e;
+        public static final int backButton=0x7f0b000e;
+        public static final int categoriesLayout=0x7f0b000f;
         public static final int clearCurrentListButton=0x7f0b000a;
         public static final int copyright=0x7f0b0001;
         public static final int hiddenText=0x7f0b000b;
         public static final int link=0x7f0b0002;
         public static final int lockCurrentListButton=0x7f0b0009;
-        public static final int menu_settings=0x7f0b0019;
-        public static final int no_sms=0x7f0b000c;
-        public static final int productTitleInput=0x7f0b0011;
-        public static final int products_list=0x7f0b0010;
-        public static final int quantityInput=0x7f0b0012;
-        public static final int quantityType=0x7f0b0013;
-        public static final int quantityType1=0x7f0b0014;
-        public static final int quantityType2=0x7f0b0016;
-        public static final int quantityType3=0x7f0b0015;
-        public static final int quantityType4=0x7f0b0017;
+        public static final int menu_settings=0x7f0b001a;
+        public static final int no_sms=0x7f0b000d;
+        public static final int productTitleInput=0x7f0b0012;
+        public static final int products_list=0x7f0b0011;
+        public static final int quantityInput=0x7f0b0013;
+        public static final int quantityType=0x7f0b0014;
+        public static final int quantityType1=0x7f0b0015;
+        public static final int quantityType2=0x7f0b0017;
+        public static final int quantityType3=0x7f0b0016;
+        public static final int quantityType4=0x7f0b0018;
         public static final int readSmsButton=0x7f0b0005;
-        public static final int search_input=0x7f0b000f;
+        public static final int read_from_sms=0x7f0b001c;
+        public static final int search_input=0x7f0b0010;
         public static final int sendSmsButton=0x7f0b0004;
+        public static final int send_as_sms=0x7f0b001b;
         public static final int shoppingList=0x7f0b0006;
         public static final int showCategoriesButton=0x7f0b0003;
+        public static final int sms_limit=0x7f0b000c;
     }
     public static final class layout {
         public static final int activity_about_application=0x7f030000;
@@ -111,7 +114,7 @@ public final class R {
         public static final int add_product=0x7f07000e;
         public static final int adding_done=0x7f070006;
         public static final int app_name=0x7f070000;
-        public static final int back=0x7f07002b;
+        public static final int back=0x7f07002c;
         public static final int cancel=0x7f070011;
         public static final int clear_current_shopping_list=0x7f070007;
         public static final int confirm_dialog_message=0x7f07001b;
@@ -142,6 +145,7 @@ public final class R {
         public static final int search_input_placeholder=0x7f070014;
         public static final int send_sms=0x7f070002;
         public static final int shopping_list_header=0x7f070008;
+        public static final int sms_limit=0x7f07002b;
         public static final int title_activity_about_application=0x7f07000c;
         public static final int title_activity_main=0x7f07000a;
         public static final int title_activity_read_sms=0x7f07000d;

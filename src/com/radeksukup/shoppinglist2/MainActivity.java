@@ -1,6 +1,5 @@
 package com.radeksukup.shoppinglist2;
 
-import java.text.Normalizer;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -23,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 
@@ -57,6 +57,12 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Intent intent = getIntent();
+		if (intent.getStringExtra(ReadSmsActivity.IMPORT_TOAST_MESSAGE) != null) {
+			Toast.makeText(getApplicationContext(), intent.getStringExtra(ReadSmsActivity.IMPORT_TOAST_MESSAGE), Toast.LENGTH_SHORT).show();
+			intent.removeExtra(ReadSmsActivity.IMPORT_TOAST_MESSAGE); // clear intent
+			intent.setAction("");
+		}
 		renderMainScreen();
 	}
 	
@@ -88,14 +94,31 @@ public class MainActivity extends FragmentActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		 switch (item.getItemId()) {
-		case R.id.about: 
-			Intent intent = new Intent(this, AboutApplicationActivity.class);
-			startActivity(intent);
-			return true;
+		Intent intent;
+		switch (item.getItemId()) {
+			case R.id.about:
+				intent = new Intent(this, AboutApplicationActivity.class);
+				startActivity(intent);
+				return true;
+				
+			case R.id.read_from_sms:
+				intent = new Intent(this, ReadSmsActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+				return true;
+				
+			case R.id.send_as_sms:
+				ShoppingList sl = (ShoppingList) getApplication();
+				if (sl.hasItems()) { // list has at least one ite
+					sendSms(null);
+				} else { // no items in shopping list
+					String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+					Toast.makeText(this, toastMessages[10], Toast.LENGTH_SHORT).show();
+				}
+				return true;
 
-		default:
-			return super.onOptionsItemSelected(item);
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -118,6 +141,8 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void lockCurrentList (View view) {
 		view.setVisibility(View.GONE);
+		findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
+		findViewById(R.id.readSmsButton).setVisibility(View.GONE);
 		findViewById(R.id.addNextButton).setVisibility(View.GONE);
 		findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 		findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
@@ -282,6 +307,8 @@ public class MainActivity extends FragmentActivity {
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.VISIBLE);
 			if (sl.isLocked()) {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
+				findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
+				findViewById(R.id.readSmsButton).setVisibility(View.GONE);
 				findViewById(R.id.addNextButton).setVisibility(View.GONE);
 				findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 				findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);

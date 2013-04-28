@@ -52,7 +52,7 @@ public class Sms {
 	
 	public String getDate() {
 		if (new SimpleDateFormat("d.M.y").format(new Date(date)).equals(new SimpleDateFormat("d.M.y").format(new Date()))) {
-			return new SimpleDateFormat("k:m").format(new Date(date)); // returns only hour and minute
+			return new SimpleDateFormat("k:mm").format(new Date(date)); // returns only hour and minute
 		} else {
 			return new SimpleDateFormat("d.M.").format(new Date(date)); // return date
 		}
