@@ -1,5 +1,12 @@
 package com.radeksukup.shoppinglist2;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -25,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
+	
+	private final String FILENAME = "filename";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +58,28 @@ public class MainActivity extends FragmentActivity {
 		if (items != null) {
 			sl.setItems(items);
 		}
+		
+		ArrayList<ShoppingListItem> items2 = null;
+		
+		try {
+			FileInputStream fis = openFileInput(FILENAME);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			items2 = (ArrayList<ShoppingListItem>) ois.readObject();
+			ois.close();
+			fis.close();
+//			if (items2 != null) {
+//				System.out.println("Read items from file: " + String.valueOf(items.size()));
+//			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (StreamCorruptedException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		renderMainScreen();
 
@@ -72,6 +103,21 @@ public class MainActivity extends FragmentActivity {
 		EditText hiddenText = (EditText) findViewById(R.id.hiddenText);
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromInputMethod(hiddenText.getWindowToken(), 0); // hide soft keyboard when activity is paused
+		
+		ShoppingList sl = (ShoppingList) getApplication();
+		
+		try {
+			FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(sl.getItems());
+			oos.close();
+			fos.close();
+			System.out.println("Items written to file.");
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	@Override

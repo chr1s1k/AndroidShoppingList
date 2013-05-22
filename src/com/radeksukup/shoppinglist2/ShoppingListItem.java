@@ -3,6 +3,8 @@
  */
 package com.radeksukup.shoppinglist2;
 
+import java.io.Serializable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,8 +12,9 @@ import android.os.Parcelable;
  * @author Radek Sukup
  *
  */
-public class ShoppingListItem implements Parcelable {
-	
+public class ShoppingListItem implements Parcelable, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String title;
 	private double quantity;
