@@ -1,12 +1,6 @@
 package com.radeksukup.shoppinglist2;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -33,8 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
-	
-	private final String FILENAME = "filename";
+
+	private final String PREF_STORAGE = "preferencesStorage";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,21 +54,18 @@ public class MainActivity extends FragmentActivity {
 //			sl.setItems(items);
 //		}
 		
+		SharedPreferences pref = getSharedPreferences(PREF_STORAGE, Context.MODE_PRIVATE); // get shared preferences
+		String serializedList = pref.getString("shopping-list", "{}"); // get previously serialized shopping list from shared preferences
 		try {
-			FileInputStream fis = openFileInput(FILENAME);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			sl = (ShoppingList) (getApplication()); ois.readObject();
-			ois.close();
-			fis.close();
-			System.out.println("Polozek nacteno: " + String.valueOf(sl.getItems().size()));
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (StreamCorruptedException e) {
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			System.out.println(e.getMessage());
+			ShoppingList deserializedList = Utils.deserializeObjectFromString(serializedList); // deserialize shopping list from string
+			sl.disabledItems = deserializedList.disabledItems; // set disabled items
+			sl.setLocked(deserializedList.isLocked()); // set status of created shopping list
+			if (deserializedList.getItems() != null) {
+				sl.setItems(deserializedList.getItems()); // set previously added items
+			}
+		} catch (Exception e) {
+			String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+			Toast.makeText(getApplicationContext(), toastMessages[12], Toast.LENGTH_SHORT).show(); // display toast message if restoring list failed
 		}
 
 		renderMainScreen();
@@ -102,15 +93,17 @@ public class MainActivity extends FragmentActivity {
 		
 		ShoppingList sl = (ShoppingList) getApplication();
 		
-		// save current items into file
-		if (sl.getItems().size() != 0) {
-			if(!saveItemsToFile(sl, FILENAME)) {
-				String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
-				Toast.makeText(getApplicationContext(), toastMessages[12], Toast.LENGTH_SHORT).show();
-			} else {
-				System.out.println("Polozek ulozeno: " + String.valueOf(sl.getItems().size()));
-			}
+		SharedPreferences pref = getSharedPreferences(PREF_STORAGE, Context.MODE_PRIVATE); // get shared preferences
+		SharedPreferences.Editor editor = pref.edit(); 
+		try {
+			String serializedList = Utils.serializeObjectToString(sl); // serialize whole shopping list into string
+			editor.putString("shopping-list", serializedList); // save serialized shopping list into persistent storage
+			editor.commit();
+		} catch (IOException e) {
+			String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+			Toast.makeText(getApplicationContext(), toastMessages[11], Toast.LENGTH_SHORT).show(); // display toast message if saving list failed
 		}
+		
 	}
 	
 	@Override
@@ -363,22 +356,5 @@ public class MainActivity extends FragmentActivity {
 			findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 		}
 	}
-	
-	/*
-	 * Saves all items in current list to file.
-	 */
-	public boolean saveItemsToFile(ShoppingList sl, String fileName) {
-		try {
-			FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(sl);
-			oos.close();
-			fos.close();
-			return true;
-		} catch (FileNotFoundException e) {
-			return false;
-		} catch (IOException e) {
-			return false;
-		}
-	}
+
 }
