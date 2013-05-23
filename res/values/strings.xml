@@ -40,6 +40,8 @@
         <item>Položek přidáno: %1$d\nPoložek sloučeno: %2$d</item>
         <item>Seznam vymazán\nPoložek přidáno: %1$d</item>
         <item>Seznam neobsahuje žádné položky!</item>
+        <item>Nákup se nepodařilo uložit.</item>
+        <item>Nákup se nepodařilo obnovit.</item>
     </string-array>
 
     <string name="confirm_dialog_title">Už máte vše!</string>

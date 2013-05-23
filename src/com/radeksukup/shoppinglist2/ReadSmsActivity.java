@@ -217,7 +217,7 @@ public class ReadSmsActivity extends Activity {
 				Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
 			}
 		}
-	} 
+	}
 
 	
 	@Override

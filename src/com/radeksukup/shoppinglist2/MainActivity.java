@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -42,34 +43,30 @@ public class MainActivity extends FragmentActivity {
 		
 		ShoppingList sl = (ShoppingList) getApplication();
 
-		int disabledItems = 0;
-		boolean locked = false;
-		ArrayList<ShoppingListItem> items = null;
-		
-		if (savedInstanceState != null) {
-			disabledItems = savedInstanceState.getInt("disabled-items"); // get disabled items
-			locked = savedInstanceState.getBoolean("locked"); // get status of created shopping list
-			items = savedInstanceState.getParcelableArrayList("shopping-list-items"); // get previously added items
-			
-			sl.disabledItems = disabledItems;
-			sl.setLocked(locked);
-		}
-		
-		if (items != null) {
-			sl.setItems(items);
-		}
-		
-		ArrayList<ShoppingListItem> items2 = null;
+//		int disabledItems = 0;
+//		boolean locked = false;
+//		ArrayList<ShoppingListItem> items = null;
+//		
+//		if (savedInstanceState != null) {
+//			disabledItems = savedInstanceState.getInt("disabled-items"); // get disabled items
+//			locked = savedInstanceState.getBoolean("locked"); // get status of created shopping list
+//			items = savedInstanceState.getParcelableArrayList("shopping-list-items"); // get previously added items
+//			
+//			sl.disabledItems = disabledItems;
+//			sl.setLocked(locked);
+//		}
+//		
+//		if (items != null) {
+//			sl.setItems(items);
+//		}
 		
 		try {
 			FileInputStream fis = openFileInput(FILENAME);
 			ObjectInputStream ois = new ObjectInputStream(fis);
-			items2 = (ArrayList<ShoppingListItem>) ois.readObject();
+			sl = (ShoppingList) (getApplication()); ois.readObject();
 			ois.close();
 			fis.close();
-//			if (items2 != null) {
-//				System.out.println("Read items from file: " + String.valueOf(items.size()));
-//			}
+			System.out.println("Polozek nacteno: " + String.valueOf(sl.getItems().size()));
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (StreamCorruptedException e) {
@@ -77,8 +74,7 @@ public class MainActivity extends FragmentActivity {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 		renderMainScreen();
@@ -106,28 +102,25 @@ public class MainActivity extends FragmentActivity {
 		
 		ShoppingList sl = (ShoppingList) getApplication();
 		
-		try {
-			FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(sl.getItems());
-			oos.close();
-			fos.close();
-			System.out.println("Items written to file.");
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
+		// save current items into file
+		if (sl.getItems().size() != 0) {
+			if(!saveItemsToFile(sl, FILENAME)) {
+				String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+				Toast.makeText(getApplicationContext(), toastMessages[12], Toast.LENGTH_SHORT).show();
+			} else {
+				System.out.println("Polozek ulozeno: " + String.valueOf(sl.getItems().size()));
+			}
 		}
 	}
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		ShoppingList sl = (ShoppingList) getApplication();
-		
-		outState.putInt("disabled-items", sl.disabledItems);
-		outState.putBoolean("locked", sl.isLocked());
-		outState.putParcelableArrayList("shopping-list-items", sl.getItems());
+//		ShoppingList sl = (ShoppingList) getApplication();
+//		
+//		outState.putInt("disabled-items", sl.disabledItems);
+//		outState.putBoolean("locked", sl.isLocked());
+//		outState.putParcelableArrayList("shopping-list-items", sl.getItems());
 		
 	}
 
@@ -155,7 +148,7 @@ public class MainActivity extends FragmentActivity {
 				
 			case R.id.send_as_sms:
 				ShoppingList sl = (ShoppingList) getApplication();
-				if (sl.hasItems()) { // list has at least one ite
+				if (sl.hasItems()) { // list has at least one item
 					sendSms(null);
 				} else { // no items in shopping list
 					String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
@@ -368,6 +361,24 @@ public class MainActivity extends FragmentActivity {
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 			findViewById(R.id.addNextButton).setVisibility(View.GONE);
 			findViewById(R.id.addCustomButton).setVisibility(View.GONE);
+		}
+	}
+	
+	/*
+	 * Saves all items in current list to file.
+	 */
+	public boolean saveItemsToFile(ShoppingList sl, String fileName) {
+		try {
+			FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(sl);
+			oos.close();
+			fos.close();
+			return true;
+		} catch (FileNotFoundException e) {
+			return false;
+		} catch (IOException e) {
+			return false;
 		}
 	}
 }

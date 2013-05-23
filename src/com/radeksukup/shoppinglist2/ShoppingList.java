@@ -3,6 +3,7 @@
  */
 package com.radeksukup.shoppinglist2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.app.Application;
@@ -11,8 +12,9 @@ import android.app.Application;
  * @author Radek Sukup
  *
  */
-public class ShoppingList extends Application {
+public class ShoppingList extends Application implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private ArrayList<ShoppingListItem> items = new ArrayList<ShoppingListItem>();
 	public int disabledItems = 0;
 	private boolean locked = false;
