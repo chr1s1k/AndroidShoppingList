@@ -3,10 +3,15 @@
  */
 package com.radeksukup.shoppinglist2;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.Toast;
 
 /**
  * @author Radek Sukup
@@ -15,9 +20,22 @@ import android.app.Application;
 public class ShoppingList extends Application implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	public final String PREF_STORAGE = "preferencesStorage";
 	private ArrayList<ShoppingListItem> items = new ArrayList<ShoppingListItem>();
 	public int disabledItems = 0;
 	private boolean locked = false;
+	private boolean imported = false;
+	
+	/*
+	 * Returns true if items was imported from SMS.
+	 */
+	public boolean wasImported() {
+		return imported;
+	}
+	
+	public void setImported(boolean imported) {
+		this.imported = imported;
+	}
 
 	/*
 	 * Locks shopping list.
@@ -193,6 +211,41 @@ public class ShoppingList extends Application implements Serializable {
 			}
 		}
 		return false;
+	}
+	
+	/*
+	 * Saves current state of shopping list into sharedPreferences. If operation fails, toast message is displayed.
+	 */
+	public void save() {
+		SharedPreferences pref = getSharedPreferences(PREF_STORAGE, Context.MODE_PRIVATE); // get shared preferences
+		SharedPreferences.Editor editor = pref.edit(); 
+		try {
+			String serializedList = Utils.serializeObjectToString(this); // serialize whole shopping list into string
+			editor.putString("shopping-list", serializedList); // save serialized shopping list into persistent storage
+			editor.commit();
+		} catch (IOException e) {
+			String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+			Toast.makeText(getApplicationContext(), toastMessages[11], Toast.LENGTH_SHORT).show(); // display toast message if saving list failed
+		}
+	}
+	
+	/*
+	 * Restores previously saved shopping list from sharedPreferences.
+	 */
+	public void restore() {
+		SharedPreferences pref = getSharedPreferences(PREF_STORAGE, Context.MODE_PRIVATE); // get shared preferences
+		String serializedList = pref.getString("shopping-list", "{}"); // get previously serialized shopping list from shared preferences
+		try {
+			ShoppingList deserializedList = Utils.deserializeObjectFromString(serializedList); // deserialize shopping list from string
+			this.disabledItems = deserializedList.disabledItems; // set disabled items
+			this.setLocked(deserializedList.isLocked()); // set status of created shopping list
+			this.setImported(deserializedList.wasImported());
+			if (deserializedList.getItems() != null) {
+				this.setItems(deserializedList.getItems()); // set previously added items
+			}
+		} catch (Exception e) {
+			Log.d("ShoppingList", "Failed when restoring shopping list.");
+		}
 	}
 	
 	@Override

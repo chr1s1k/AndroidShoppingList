@@ -25,6 +25,7 @@ public class ConfirmDialog extends DialogFragment {
 				public void onClick(DialogInterface dialog, int id) {
 					sl.empty();
 					sl.unLock();
+					sl.setImported(false);
 					ListView shoppingList = (ListView) getActivity().findViewById(R.id.shoppingList);
 					shoppingList.invalidateViews(); // clear data from shopping list view
 					getActivity().findViewById(R.id.sendSmsButton).setVisibility(View.GONE);

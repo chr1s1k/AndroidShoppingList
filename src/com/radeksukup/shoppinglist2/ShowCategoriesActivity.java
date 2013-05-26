@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -146,6 +145,8 @@ public class ShowCategoriesActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
@@ -155,11 +156,14 @@ public class ShowCategoriesActivity extends Activity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
+//			NavUtils.navigateUpFromSameTask(this);
+			intent = new Intent(this, MainActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 			return true;
 
 		case R.id.about: 
-			Intent intent = new Intent(this, AboutApplicationActivity.class);
+			intent = new Intent(this, AboutApplicationActivity.class);
 			startActivity(intent);
 			return true;
 		}

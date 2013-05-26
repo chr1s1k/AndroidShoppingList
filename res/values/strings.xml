@@ -59,9 +59,17 @@
     <string name="menu_options_about">O aplikaci</string>
     <string name="copyright">\u00A9 2013, Radek Sukup, Jana Michnová</string>
     <string name="link">http://radeksukup.com</string>
+    <string name="changelog_header">Změny v této verzi:</string>
     <string name="action_settings">Settings</string>
     <string name="no_sms">Telefon neobsahuje žádné příchozí SMS zprávy.</string>
     <string name="sms_limit">Zobrazeno posledních %1$d SMS zpráv.</string>
     <string name="back">Zpět</string>
+    
+    <string-array name="changelogItems">
+        <item>Nákup zůstane uložen i po ukončení aplikace či po restartu telefonu.</item>
+        <item>Nákup lze načíst z příchozí SMS.</item>
+        <item>Přidány ikonky pro lepší rozlišení mezi stavy vytváření/odškrtávání nákupu.</item>
+        <item>Sjednoceny animace (přechody) mezi obrazovkama.</item>
+    </string-array>
 
 </resources>

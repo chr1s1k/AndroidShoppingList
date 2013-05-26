@@ -1,11 +1,9 @@
 package com.radeksukup.shoppinglist2;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -27,8 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
-
-	private final String PREF_STORAGE = "preferencesStorage";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -53,20 +49,8 @@ public class MainActivity extends FragmentActivity {
 //		if (items != null) {
 //			sl.setItems(items);
 //		}
-		
-		SharedPreferences pref = getSharedPreferences(PREF_STORAGE, Context.MODE_PRIVATE); // get shared preferences
-		String serializedList = pref.getString("shopping-list", "{}"); // get previously serialized shopping list from shared preferences
-		try {
-			ShoppingList deserializedList = Utils.deserializeObjectFromString(serializedList); // deserialize shopping list from string
-			sl.disabledItems = deserializedList.disabledItems; // set disabled items
-			sl.setLocked(deserializedList.isLocked()); // set status of created shopping list
-			if (deserializedList.getItems() != null) {
-				sl.setItems(deserializedList.getItems()); // set previously added items
-			}
-		} catch (Exception e) {
-			String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
-			Toast.makeText(getApplicationContext(), toastMessages[12], Toast.LENGTH_SHORT).show(); // display toast message if restoring list failed
-		}
+
+		sl.restore();
 
 		renderMainScreen();
 
@@ -87,23 +71,12 @@ public class MainActivity extends FragmentActivity {
 	protected void onPause() {
 		super.onPause();
 		
+		ShoppingList sl = (ShoppingList) getApplication();
+		sl.save();
+		
 		EditText hiddenText = (EditText) findViewById(R.id.hiddenText);
 		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromInputMethod(hiddenText.getWindowToken(), 0); // hide soft keyboard when activity is paused
-		
-		ShoppingList sl = (ShoppingList) getApplication();
-		
-		SharedPreferences pref = getSharedPreferences(PREF_STORAGE, Context.MODE_PRIVATE); // get shared preferences
-		SharedPreferences.Editor editor = pref.edit(); 
-		try {
-			String serializedList = Utils.serializeObjectToString(sl); // serialize whole shopping list into string
-			editor.putString("shopping-list", serializedList); // save serialized shopping list into persistent storage
-			editor.commit();
-		} catch (IOException e) {
-			String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
-			Toast.makeText(getApplicationContext(), toastMessages[11], Toast.LENGTH_SHORT).show(); // display toast message if saving list failed
-		}
-		
 	}
 	
 	@Override
@@ -114,6 +87,8 @@ public class MainActivity extends FragmentActivity {
 //		outState.putInt("disabled-items", sl.disabledItems);
 //		outState.putBoolean("locked", sl.isLocked());
 //		outState.putParcelableArrayList("shopping-list-items", sl.getItems());
+		
+//		sl.save();
 		
 	}
 
@@ -346,6 +321,9 @@ public class MainActivity extends FragmentActivity {
 				findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 			} else {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
+			}
+			if (sl.wasImported()) {
+				findViewById(R.id.readSmsButton).setVisibility(View.GONE);
 			}
 			renderShoppingList(sl);
 		} else {

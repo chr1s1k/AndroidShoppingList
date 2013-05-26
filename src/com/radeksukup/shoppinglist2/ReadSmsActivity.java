@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -209,6 +210,9 @@ public class ReadSmsActivity extends Activity {
 			slWasPopulated = false;
 			
 			if (added != 0 || merged != 0) { // if there was some action, "redirect" to main activity and afterwards show toast message
+				sl.setImported(true); // set imported flag
+				sl.save(); // before "redirect" save list
+				
 				Intent intent = new Intent(this, MainActivity.class);
 				intent.putExtra(IMPORT_TOAST_MESSAGE, toastMessage);
 				startActivity(intent);
@@ -223,7 +227,7 @@ public class ReadSmsActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+		backToMainActivity(null);
 	}
 
 	@Override
@@ -231,6 +235,22 @@ public class ReadSmsActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.read_sms, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			backToMainActivity(null);
+			return true;
+
+		case R.id.about: 
+			intent = new Intent(this, AboutApplicationActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }

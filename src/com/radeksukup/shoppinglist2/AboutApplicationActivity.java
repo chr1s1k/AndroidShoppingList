@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.util.Linkify;
 import android.view.Menu;
 import android.widget.TextView;
@@ -35,6 +36,19 @@ public class AboutApplicationActivity extends Activity {
 		
 		TextView link = (TextView) findViewById(R.id.link);
 		Linkify.addLinks(link, Linkify.ALL);
+		
+		TextView changelogView = (TextView) findViewById(R.id.changelog);
+		String[] changelogItems = getResources().getStringArray(R.array.changelogItems);
+		String changelog = "";
+		
+		for (int i = 0; i < changelogItems.length; i++) {
+			changelog += "&#8226; " + changelogItems[i];
+			if (i + 1 != changelogItems.length) {
+				changelog += "<br />";
+			}
+		}
+		
+	    changelogView.setText(Html.fromHtml(changelog));
 	}
 
 	@Override

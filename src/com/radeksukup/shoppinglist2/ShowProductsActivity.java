@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -46,7 +45,7 @@ public class ShowProductsActivity extends FragmentActivity {
 		
 		String categoryTitle = intent.getExtras().getString("categoryTitle");
 		int categoryId = intent.getExtras().getInt("categoryId");
-		
+
 		setTitle(categoryTitle); // set title of screen
 		
 		dataSource = new DataSource(this);
@@ -105,6 +104,7 @@ public class ShowProductsActivity extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
@@ -114,11 +114,14 @@ public class ShowProductsActivity extends FragmentActivity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
-			NavUtils.navigateUpFromSameTask(this);
+//			NavUtils.navigateUpFromSameTask(this);
+			intent = new Intent(this, ShowCategoriesActivity.class);
+			startActivity(intent);
+			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
 			return true;
 
 		case R.id.about: 
-			Intent intent = new Intent(this, AboutApplicationActivity.class);
+			intent = new Intent(this, AboutApplicationActivity.class);
 			startActivity(intent);
 			return true;
 		}
@@ -152,6 +155,9 @@ public class ShowProductsActivity extends FragmentActivity {
 	@Override
 	protected void onPause() {
 		super.onPause();
+		ShoppingList sl = (ShoppingList) getApplication();
+		sl.save();
+
 		//InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		//imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0); // hide soft keyboard after pausing the activity
 		EditText searchInput = (EditText) findViewById(R.id.search_input);
