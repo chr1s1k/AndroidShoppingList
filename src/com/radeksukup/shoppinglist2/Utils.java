@@ -20,8 +20,6 @@ import android.util.Base64OutputStream;
  */
 public class Utils {
 	
-//	private static Base64 base64;
-	
 	public static String removeDiacritics(String str) {
 		str = Normalizer.normalize(str, Normalizer.Form.NFD);
 		str = str.replaceAll("[^\\p{ASCII}]", "");

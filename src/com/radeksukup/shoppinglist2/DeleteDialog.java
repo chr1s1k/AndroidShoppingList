@@ -33,10 +33,12 @@ public class DeleteDialog extends DialogFragment  {
 					
 					if (sl.size() == 0) { // all items has been deleted => rerender main screen
 						getActivity().findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
+						getActivity().findViewById(R.id.readSmsButton).setVisibility(View.VISIBLE);
 						getActivity().findViewById(R.id.addNextButton).setVisibility(View.GONE);
 						getActivity().findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 						getActivity().findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 						getActivity().findViewById(R.id.showCategoriesButton).setVisibility(View.VISIBLE);
+						sl.setImported(false);
 					}
 					
 					String[] toastMessages = getResources().getStringArray(R.array.toast_messages);

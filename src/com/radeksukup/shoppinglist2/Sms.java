@@ -64,7 +64,7 @@ public class Sms {
 	
 	@Override
 	public String toString() {
-		return body.length() > 30 ? body.substring(0, 30) + "..." : body; // returns only part of sms body if is too long
+		return body.length() > 35 ? body.substring(0, 35) + "..." : body; // returns only part of sms body if is too long
 	}
 	
 }

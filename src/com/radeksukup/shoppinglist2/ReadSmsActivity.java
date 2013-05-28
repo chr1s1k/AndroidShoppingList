@@ -79,6 +79,7 @@ public class ReadSmsActivity extends Activity {
 									slWasPopulated = sl.hasItems();
 									sl.unLock();
 									sl.empty();
+									sl.save();
 									importListFromSms(smsBody, sl);
 								}
 							})

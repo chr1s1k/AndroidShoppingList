@@ -68,6 +68,7 @@
     <string-array name="changelogItems">
         <item>Nákup zůstane uložen i po ukončení aplikace či po restartu telefonu.</item>
         <item>Nákup lze načíst z příchozí SMS.</item>
+        <item>Položku lze ze seznamu odebrat přidržením prstu.</item>
         <item>Přidány ikonky pro lepší rozlišení mezi stavy vytváření/odškrtávání nákupu.</item>
         <item>Sjednoceny animace (přechody) mezi obrazovkama.</item>
     </string-array>
