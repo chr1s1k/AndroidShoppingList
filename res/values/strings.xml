@@ -57,6 +57,7 @@
     <string name="import_dialog_message">V aplikaci již nákup existuje. Chcete ho sloučit nebo nahradit nákupem z SMS?</string>
     <string name="menu_settings">Nastavení</string>
     <string name="menu_options_about">O aplikaci</string>
+    <string name="menu_options_save_list">Uložit nákup</string>
     <string name="copyright">\u00A9 2013, Radek Sukup, Jana Michnová</string>
     <string name="link">http://radeksukup.com</string>
     <string name="changelog_header">Změny v této verzi:</string>

@@ -82,6 +82,7 @@ public final class R {
         public static final int quantityType4=0x7f0b001a;
         public static final int readSmsButton=0x7f0b0007;
         public static final int read_from_sms=0x7f0b001e;
+        public static final int save_list=0x7f0b001f;
         public static final int search_input=0x7f0b0012;
         public static final int sendSmsButton=0x7f0b0006;
         public static final int send_as_sms=0x7f0b001d;
@@ -110,22 +111,22 @@ public final class R {
         public static final int read_sms=0x7f0a0005;
     }
     public static final class string {
-        public static final int action_settings=0x7f07002a;
+        public static final int action_settings=0x7f07002b;
         public static final int add_custom=0x7f070005;
         public static final int add_custom_form_header=0x7f070019;
         public static final int add_next=0x7f070004;
         public static final int add_product=0x7f07000e;
         public static final int adding_done=0x7f070006;
         public static final int app_name=0x7f070000;
-        public static final int back=0x7f07002d;
+        public static final int back=0x7f07002e;
         public static final int cancel=0x7f070011;
-        public static final int changelog_header=0x7f070029;
+        public static final int changelog_header=0x7f07002a;
         public static final int clear_current_shopping_list=0x7f070007;
         public static final int confirm_dialog_message=0x7f07001b;
         public static final int confirm_dialog_no_button=0x7f07001d;
         public static final int confirm_dialog_title=0x7f07001a;
         public static final int confirm_dialog_yes_button=0x7f07001c;
-        public static final int copyright=0x7f070027;
+        public static final int copyright=0x7f070028;
         public static final int create_new_shopping_list=0x7f070001;
         public static final int delete_dialog_message=0x7f07001e;
         public static final int delete_dialog_no_button=0x7f070020;
@@ -134,10 +135,11 @@ public final class R {
         public static final int import_dialog_message=0x7f070024;
         public static final int import_dialog_replace_button=0x7f070022;
         public static final int import_dialog_title=0x7f070023;
-        public static final int link=0x7f070028;
+        public static final int link=0x7f070029;
         public static final int menu_options_about=0x7f070026;
+        public static final int menu_options_save_list=0x7f070027;
         public static final int menu_settings=0x7f070025;
-        public static final int no_sms=0x7f07002b;
+        public static final int no_sms=0x7f07002c;
         public static final int product_title_input_placeholder=0x7f070013;
         public static final int quantity_input_placeholder=0x7f070012;
         public static final int quantity_type1=0x7f070015;
@@ -149,7 +151,7 @@ public final class R {
         public static final int search_input_placeholder=0x7f070014;
         public static final int send_sms=0x7f070002;
         public static final int shopping_list_header=0x7f070008;
-        public static final int sms_limit=0x7f07002c;
+        public static final int sms_limit=0x7f07002d;
         public static final int title_activity_about_application=0x7f07000c;
         public static final int title_activity_main=0x7f07000a;
         public static final int title_activity_read_sms=0x7f07000d;

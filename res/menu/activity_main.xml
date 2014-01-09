@@ -13,10 +13,15 @@
         android:title="@string/read_sms"/>
     
     <item
-        android:id="@+id/about"
+        android:id="@+id/save_list"
         android:orderInCategory="300"
         android:showAsAction="never"
+        android:title="@string/menu_options_save_list"/>
+    
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="400"
+        android:showAsAction="never"
         android:title="@string/menu_options_about"/>
-
 
 </menu>
