@@ -2,6 +2,8 @@ package com.radeksukup.shoppinglist2;
 
 import java.util.ArrayList;
 
+import com.radeksukup.shoppinglist2.ConfirmDialog.ConfirmDialogListener;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,7 +26,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements ConfirmDialogListener {
+	
+	private boolean itemAddNewIsHidden = false;
+
+	public void setItemAddNewIsHidden(boolean itemAddNewIsHidden) {
+		this.itemAddNewIsHidden = itemAddNewIsHidden;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +104,11 @@ public class MainActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_main, menu);
+		
+		if (itemAddNewIsHidden) {
+			MenuItem item = menu.findItem(R.id.action_add_new);
+			item.setVisible(false);
+		}
 		return true;
 	}
 	
@@ -123,6 +136,12 @@ public class MainActivity extends FragmentActivity {
 					Toast.makeText(this, toastMessages[10], Toast.LENGTH_SHORT).show();
 				}
 				return true;
+				
+			case R.id.action_add_new:
+				intent = new Intent(this, ShowCategoriesActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+				return true;
 
 			default:
 				return super.onOptionsItemSelected(item);
@@ -148,11 +167,11 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void lockCurrentList (View view) {
 		view.setVisibility(View.GONE);
-		findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
 		findViewById(R.id.readSmsButton).setVisibility(View.GONE);
-		findViewById(R.id.addNextButton).setVisibility(View.GONE);
-		findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 		findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
+		
+		setItemAddNewIsHidden(true);
+		invalidateOptionsMenu(); // re-render options menu
 		ShoppingList sl = (ShoppingList) getApplication();
 		sl.lock();
 	}
@@ -160,6 +179,25 @@ public class MainActivity extends FragmentActivity {
 	public void clearCurrentList (View view) {
 		DialogFragment confirmDialog = new ConfirmDialog();
 		confirmDialog.show(getSupportFragmentManager(), "confirmDialog");
+	}
+	
+	@Override
+	public void onDialogPositiveClick(DialogFragment dialog) {
+		ShoppingList sl = (ShoppingList) getApplication();
+		sl.empty();
+		sl.unLock();
+		sl.setImported(false);
+		ListView shoppingList = (ListView) findViewById(R.id.shoppingList);
+		shoppingList.invalidateViews(); // clear data from shopping list view
+		findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
+		findViewById(R.id.readSmsButton).setVisibility(View.VISIBLE);
+		
+		setItemAddNewIsHidden(false);
+		invalidateOptionsMenu();
+		
+		// show toast message
+		String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
+		Toast.makeText(getApplicationContext(), toastMessages[3], Toast.LENGTH_SHORT).show();
 	}
 	
 	/*
@@ -289,16 +327,16 @@ public class MainActivity extends FragmentActivity {
 		};
 	}
 	
-	public void showAddCustomForm(View view) {
-		DialogFragment addCustomFormDialog = new FormDialog();
-		int generatedId = (int) (Math.random()*100000);
-		String dialogTitle = getResources().getString(R.string.add_custom_form_header);
-		
-		((FormDialog) addCustomFormDialog).setTitle(dialogTitle); // set dialog title
-		((FormDialog) addCustomFormDialog).setProductId(generatedId); // set newly generated product id
-		((FormDialog) addCustomFormDialog).setCustomProduct(true); // tell the dialog that we are adding custom product
-		addCustomFormDialog.show(getSupportFragmentManager(), "addCustomFormDialog");
-	}
+//	public void showAddCustomForm(View view) {
+//		DialogFragment addCustomFormDialog = new FormDialog();
+//		int generatedId = (int) (Math.random()*100000);
+//		String dialogTitle = getResources().getString(R.string.add_custom_form_header);
+//		
+//		((FormDialog) addCustomFormDialog).setTitle(dialogTitle); // set dialog title
+//		((FormDialog) addCustomFormDialog).setProductId(generatedId); // set newly generated product id
+//		((FormDialog) addCustomFormDialog).setCustomProduct(true); // tell the dialog that we are adding custom product
+//		addCustomFormDialog.show(getSupportFragmentManager(), "addCustomFormDialog");
+//	}
 	
 	/*
 	 * Renders layout of main activity according to current state of shopping list.
@@ -307,17 +345,16 @@ public class MainActivity extends FragmentActivity {
 		ShoppingList sl = (ShoppingList) getApplication();
 		
 		if (sl.hasItems()) {
-			findViewById(R.id.sendSmsButton).setVisibility(View.VISIBLE);
-			findViewById(R.id.showCategoriesButton).setVisibility(View.GONE);
-			findViewById(R.id.addNextButton).setVisibility(View.VISIBLE);
-			findViewById(R.id.addCustomButton).setVisibility(View.VISIBLE);
+//			findViewById(R.id.sendSmsButton).setVisibility(View.VISIBLE);
+//			findViewById(R.id.showCategoriesButton).setVisibility(View.VISIBLE);
+//			findViewById(R.id.addNextButton).setVisibility(View.VISIBLE);
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.VISIBLE);
 			if (sl.isLocked()) {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.VISIBLE);
-				findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
+//				findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
 				findViewById(R.id.readSmsButton).setVisibility(View.GONE);
-				findViewById(R.id.addNextButton).setVisibility(View.GONE);
-				findViewById(R.id.addCustomButton).setVisibility(View.GONE);
+//				findViewById(R.id.addNextButton).setVisibility(View.GONE);
+//				findViewById(R.id.addCustomButton).setVisibility(View.GONE);
 				findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
 			} else {
 				findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
@@ -327,11 +364,10 @@ public class MainActivity extends FragmentActivity {
 			}
 			renderShoppingList(sl);
 		} else {
-			findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
+//			findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
 			findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
 			findViewById(R.id.lockCurrentListButton).setVisibility(View.GONE);
-			findViewById(R.id.addNextButton).setVisibility(View.GONE);
-			findViewById(R.id.addCustomButton).setVisibility(View.GONE);
+//			findViewById(R.id.addNextButton).setVisibility(View.GONE);
 		}
 	}
 

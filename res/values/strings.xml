@@ -2,11 +2,11 @@
 <resources>
 
     <string name="app_name">Nákupní seznam</string>
-    <string name="create_new_shopping_list">Napsat nový nákup</string>
+    <string name="add_existing">Vybrat položku se seznamu</string>
     <string name="send_sms">Poslat jako SMS</string>
     <string name="read_sms">Načíst nákup z SMS</string>
-    <string name="add_next">Přidat další</string>
-    <string name="add_custom">Přidat vlastní</string>
+    <string name="add_next">Přidat položku</string>
+    <string name="add_custom">Přidat vlastní položku</string>
     <string name="adding_done">Hotovo</string>
     <string name="clear_current_shopping_list">Mám nakoupeno</string>
     <string name="shopping_list_header">Váš nákup</string>

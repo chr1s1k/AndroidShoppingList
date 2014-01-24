@@ -1,26 +1,33 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item 
+        android:id="@+id/action_add_new"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/ic_action_add_new"
+        android:title="@string/add_next" />
 
     <item
         android:id="@+id/send_as_sms"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:showAsAction="never"
         android:title="@string/send_sms"/>
     
     <item
         android:id="@+id/read_from_sms"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         android:showAsAction="never"
         android:title="@string/read_sms"/>
     
     <item
         android:id="@+id/save_list"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         android:showAsAction="never"
         android:title="@string/menu_options_save_list"/>
     
     <item
         android:id="@+id/about"
-        android:orderInCategory="400"
+        android:orderInCategory="500"
         android:showAsAction="never"
         android:title="@string/menu_options_about"/>
 

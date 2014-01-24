@@ -3,65 +3,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/furley_bg"
     android:orientation="vertical"
     tools:context=".MainActivity" >
-        
-    <Button
-        android:id="@+id/showCategoriesButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="showCategories"
-        android:text="@string/create_new_shopping_list" />
-        
-    <Button
-        android:id="@+id/sendSmsButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="sendSms"
-        android:text="@string/send_sms" />
     
-    <Button
-        android:id="@+id/readSmsButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="readSms"
-        android:text="@string/read_sms" />
+        android:layout_height="wrap_content" >
+        
+        <Button
+            android:id="@+id/readSmsButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:onClick="readSms"
+            android:text="@string/read_sms" />
+        
+    </LinearLayout>
         
     <ListView
         android:id="@+id/shoppingList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/white" />
-        
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        
-        <Button
-            android:id="@+id/addNextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="showCategories"
-            android:text="@string/add_next" />
-        
-        <Button
-            android:id="@+id/addCustomButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="showAddCustomForm"
-            android:text="@string/add_custom" />
-        
-     </LinearLayout>
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent" />
      
     <Button
-            android:id="@+id/lockCurrentListButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="lockCurrentList"
-            android:text="@string/adding_done" />
+        android:id="@+id/lockCurrentListButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="lockCurrentList"
+        android:text="@string/adding_done" />
     
      <Button
         android:id="@+id/clearCurrentListButton"
@@ -75,6 +47,7 @@
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:ems="10"
+         android:inputType="none"
          android:visibility="gone" />
 
 </LinearLayout>

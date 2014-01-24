@@ -8,7 +8,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	
 	private static final String DATABASE_NAME = "shoppingList.db";
-	private static final int DATABASE_VERSION = 35;
+	private static final int DATABASE_VERSION = 36;
 	
 	public static final String CATEGORIES_TABLE = "categories";
 	public static final String CATEGORY_COLUMN_ID = "id";
@@ -107,6 +107,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Ředkev', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Zázvor', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Kedlubny', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Pažitka', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Petrželová nať', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rukola', 2)");
+	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Polníček', 2)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Chleba', 3)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Toastový chleba', 3)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Rohlíky', 3)");
@@ -500,8 +504,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Badyán mletý', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Badyán celý', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Hořčičné semínko', 12)");
-	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Pažitka', 12)");
-	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Petrželová nať', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Římský kmín', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Provensálské koření', 12)");
 	    db.execSQL("INSERT INTO products (id, title, categoryId) VALUES (null, 'Sójová omáčka', 12)");

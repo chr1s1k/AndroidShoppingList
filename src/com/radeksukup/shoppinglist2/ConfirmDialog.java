@@ -1,21 +1,43 @@
 package com.radeksukup.shoppinglist2;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-//import android.app.DialogFragment;
-import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.support.v4.app.DialogFragment;
+//import android.app.DialogFragment;
 
 public class ConfirmDialog extends DialogFragment {
+	
+	/* The activity that creates an instance of this dialog fragment must
+     * implement this interface in order to receive event callbacks.
+     * Each method passes the DialogFragment in case the host needs to query it. */
+    public interface ConfirmDialogListener {
+        public void onDialogPositiveClick(DialogFragment dialog);
+    }
+    
+    // Use this instance of the interface to deliver action events
+    ConfirmDialogListener mListener;
+    
+    // Override the Fragment.onAttach() method to instantiate the ConfirmDialogListener
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the ConfirmDialogListener so we can send events to the host
+            mListener = (ConfirmDialogListener) activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString() + " must implement ConfirmDialogListener");
+        }
+    }
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		final ShoppingList sl = (ShoppingList) getActivity().getApplication();
 		
 		builder.setTitle(R.string.confirm_dialog_title)
 			.setMessage(R.string.confirm_dialog_message)
@@ -23,19 +45,7 @@ public class ConfirmDialog extends DialogFragment {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int id) {
-					sl.empty();
-					sl.unLock();
-					sl.setImported(false);
-					ListView shoppingList = (ListView) getActivity().findViewById(R.id.shoppingList);
-					shoppingList.invalidateViews(); // clear data from shopping list view
-					getActivity().findViewById(R.id.sendSmsButton).setVisibility(View.GONE);
-					getActivity().findViewById(R.id.clearCurrentListButton).setVisibility(View.GONE);
-					getActivity().findViewById(R.id.showCategoriesButton).setVisibility(View.VISIBLE);
-					getActivity().findViewById(R.id.readSmsButton).setVisibility(View.VISIBLE);
-					
-					// show toast message
-					String[] toastMessages = getResources().getStringArray(R.array.toast_messages);
-					Toast.makeText(getActivity().getApplicationContext(), toastMessages[3], Toast.LENGTH_SHORT).show();
+					mListener.onDialogPositiveClick(ConfirmDialog.this);
 				}
 			})
 			.setNegativeButton(R.string.confirm_dialog_no_button, new DialogInterface.OnClickListener() {

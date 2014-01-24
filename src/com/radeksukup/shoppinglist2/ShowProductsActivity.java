@@ -106,24 +106,35 @@ public class ShowProductsActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Intent intent;
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
-//			NavUtils.navigateUpFromSameTask(this);
-			intent = new Intent(this, ShowCategoriesActivity.class);
-			startActivity(intent);
-			overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
-			return true;
-
-		case R.id.about: 
-			intent = new Intent(this, AboutApplicationActivity.class);
-			startActivity(intent);
-			return true;
+			case android.R.id.home:
+				// This ID represents the Home or Up button. In the case of this
+				// activity, the Up button is shown. Use NavUtils to allow users
+				// to navigate up one level in the application structure. For
+				// more details, see the Navigation pattern on Android Design:
+				//
+				// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+				//
+	//			NavUtils.navigateUpFromSameTask(this);
+				intent = new Intent(this, ShowCategoriesActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right);
+				return true;
+	
+			case R.id.about: 
+				intent = new Intent(this, AboutApplicationActivity.class);
+				startActivity(intent);
+				return true;
+			
+			case R.id.add_custom:
+				DialogFragment addCustomFormDialog = new FormDialog();
+				int generatedId = (int) (Math.random()*100000);
+				String dialogTitle = getResources().getString(R.string.add_custom_form_header);
+				
+				((FormDialog) addCustomFormDialog).setTitle(dialogTitle); // set dialog title
+				((FormDialog) addCustomFormDialog).setProductId(generatedId); // set newly generated product id
+				((FormDialog) addCustomFormDialog).setCustomProduct(true); // tell the dialog that we are adding custom product
+				addCustomFormDialog.show(getSupportFragmentManager(), "addCustomFormDialog");
+				return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
